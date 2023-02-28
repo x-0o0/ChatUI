@@ -88,6 +88,10 @@ public struct MessageList<MessageType: MessageProtocol & Identifiable, RowConten
                         }
                     }
                 }
+                .keyboard(isKeyboardShown ? .visible : .hidden)
+                .onReceive(keyboardNotificationPublisher) { isShown in
+                    isKeyboardShown = isShown
+                }
                 .coordinateSpace(name: listName)
                 .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
                     DispatchQueue.main.async { [self] in
@@ -100,16 +104,9 @@ public struct MessageList<MessageType: MessageProtocol & Identifiable, RowConten
                             showsScrollButton = isScrollButtonShown
                         }
                         
+                        print(diff)
                         if isKeyboardShown && diff < -20 {
                             isKeyboardShown = false
-                            
-                            UIApplication.shared
-                                .sendAction(
-                                    #selector(UIResponder.resignFirstResponder),
-                                    to: nil,
-                                    from: nil,
-                                    for: nil
-                                )
                         }
                     }
                 }
