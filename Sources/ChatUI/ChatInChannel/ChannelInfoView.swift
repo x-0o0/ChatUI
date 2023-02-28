@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+/**
+ The view that displays the following channel information:
+ 
+ - The image of the channel
+ - The title of the channel
+ - The subtitle of the channel
+ */
 public struct ChannelInfoView: View {
     @Environment(\.appearance) var appearance
     

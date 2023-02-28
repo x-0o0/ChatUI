@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// TODO: Not current scope
+// TODO: Not Supported yet
 struct MessageSearchBar: View {
     @State private var searchText: String = ""
     

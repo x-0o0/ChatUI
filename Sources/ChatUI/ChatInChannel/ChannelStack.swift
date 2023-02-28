@@ -7,18 +7,6 @@
 
 import SwiftUI
 
-// TODO: VStack 감싸기
-/**
- ```swift
- ChannelStack(channel, spacing: 0) {
-    MessageList() { ... }
- 
-    MessageField { ... }
- }
- .channelInfoBar { ... }
- ```
- */
-
 /**
  The *vertical* stack view that provides ``ChannelInfoView`` as a `ToolbarItem`.
  
@@ -34,10 +22,10 @@ import SwiftUI
  }
  ```
  */
-public struct ChannelStack<C: ChannelProtocol, Content: View>: View {
+public struct ChannelStack<ChannelType: ChannelProtocol, Content: View>: View {
     @EnvironmentObject private var configuration: ChatConfiguration
     
-    let channel: C
+    let channel: ChannelType
     let content: () -> Content
     
     public var body: some View {
@@ -56,7 +44,7 @@ public struct ChannelStack<C: ChannelProtocol, Content: View>: View {
     }
     
     public init(
-        _ channel: C,
+        _ channel: ChannelType,
         @ViewBuilder content: @escaping () -> Content
     ) {
         self.channel = channel

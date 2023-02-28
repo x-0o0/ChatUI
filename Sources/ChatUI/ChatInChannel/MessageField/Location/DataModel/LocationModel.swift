@@ -19,7 +19,6 @@ class LocationModel: NSObject, ObservableObject {
         case tracked
     }
     
-    // TODO: change to `false`
     @Published var locationTrackingStatus: TrackStatus = .none
     @Published var coordinateRegion: MKCoordinateRegion = .init(
         center: .init(latitude: 37.57827, longitude: 126.97695),
