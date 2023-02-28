@@ -99,11 +99,12 @@ To see **Figma**, the design resources, please see [ChatUI - Figma Community](ht
 
 If you have any feature you want, please let me know via *Issue* or *Discussion*
 
-- [ ]  MessageList: Dimiss keyboard when tap outside
+- [x]  MessageList: Dimiss keyboard when tap outside
 - [ ]  MessageList: Date view
 - [ ]  MessageList: Publisher for retrieving more message while scrolling
 - [ ]  MessageRow: placement (e.g., Both, leftOnly, rightOnly)
 - [ ]  MessageField: CameraCapturer
 - [ ]  Giphy: Resize body with GIF frame size
+- [ ]  MapView: The view to shows map when the `.media(.location)` style message was tapped.
 - [ ]  MediaView: The view to display / play media in message
 - [ ]  MessageSearch: The feature that searches messages.
