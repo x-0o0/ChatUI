@@ -9,6 +9,50 @@ import Combine
 import SwiftUI
 import PhotosUI
 
+/**
+ The view for sending messages.
+ 
+ When creating a `MessageField`, you can provide an action for how to handle a new `MessageStyle` information in the `onSend` parameter. `MessageStyle` can contain different types of messages, such as text, media (photo, video, document, contact), and voice.
+
+ ```swift
+ MessageField { messageStyle in
+     viewModel.sendMessage($0)
+ }
+ ```
+ 
+ To handle menu items, assign state property to `isMenuItemPresented` parameter.
+ 
+ ```swift
+ MessageField(isMenuItemPresented: $isMenuItemPresented) { ... }
+
+ if isMenuItemPresented {
+     MyMenuItemList()
+ }
+ ```
+ 
+ To publish a new message, you can create a new `MessageStyle` object and send it using `send(_:)`.
+
+ ```swift
+ let _ = Empty<Void, Never>()
+     .sink(
+         receiveCompletion: { _ in
+             // Create `MessageStyle` object
+             let style = MessageStyle.text("{TEXT}")
+             // Publish the created style object via `send(_:)`
+             sendMessagePublisher.send(style)
+         },
+         receiveValue: { _ in }
+     )
+ ```
+ 
+ You can subscribe to `sendMessagePublisher` to handle new messages.
+
+ ```swift
+ .onReceive(sendMessagePublisher) { messageStyle in
+     // Handle `messageStyle` here (e.g., sending message with the style)
+ }
+ ```
+ */
 public struct MessageField: View {
     @EnvironmentObject private var configuration: ChatConfiguration
 

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// TODO: Not current scope
+// TODO: Not Supported yet
 struct MessageSearch_Previews: PreviewProvider {
     static var previews: some View {
         MessageSearchBar()

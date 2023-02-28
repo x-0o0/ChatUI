@@ -7,7 +7,17 @@
 
 import SwiftUI
 
+/**
+ The view that lists message objects.
+ 
+ In the intializer, you can list message objects that conform to ``MessageProtocol`` to display messages using the `rowContent` parameter.
 
+ All the body and row contents are flipped vertically so that new messages can be listed from the bottom.
+
+ The messages are listed in the following order, depending on the ``ReadReceipt`` value of the ``MessageProtocol``. For more details, please refer to ``MessageProtocol/readReceipt`` or ``ReadReceipt``.
+
+ - **NOTE:** The order of the messages:  sending → failed → sent → delivered → seen
+ */
 public struct MessageList<MessageType: MessageProtocol & Identifiable, RowContent: View>: View {
     
     @EnvironmentObject var configuration: ChatConfiguration
@@ -104,7 +114,6 @@ public struct MessageList<MessageType: MessageProtocol & Identifiable, RowConten
                             showsScrollButton = isScrollButtonShown
                         }
                         
-                        print(diff)
                         if isKeyboardShown && diff < -20 {
                             isKeyboardShown = false
                         }
@@ -114,7 +123,6 @@ public struct MessageList<MessageType: MessageProtocol & Identifiable, RowConten
                 /// When tapped sending button. Called after `onSent` in ``MessageField``
                 .onChange(of: sendingMessages) { newValue in
                     if let id = sendingMessages.first?.id {
-                        print("☺️ \(id)")
                         withAnimation {
                             scrollView.scrollTo(id, anchor: .bottom)
                         }
@@ -145,7 +153,7 @@ public struct MessageList<MessageType: MessageProtocol & Identifiable, RowConten
     
     public init(
         _ messageData: [MessageType],
-        showsDate: Bool = false,
+        showsDate: Bool = false, // TODO: Not Supported yet
         @ViewBuilder rowContent: @escaping (_ message: MessageType) -> RowContent
     ) {
         var sendingMessages: [MessageType] = []

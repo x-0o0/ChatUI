@@ -28,7 +28,6 @@ public struct ScrollButton: View {
         let _ = Empty<Void, Never>()
             .sink(
                 receiveCompletion: { _ in
-                    print("☺️ scrollsToBottom send")
                     scrollDownPublisher.send(())
                 },
                 receiveValue: { _ in }

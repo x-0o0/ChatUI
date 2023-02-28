@@ -2,13 +2,15 @@
 
 ## Lists messages in row contents
 
-In the constructor, you can list message objects that conform to `MessageProtocol` to display messages using the `rowContent` parameter.
+In the intializer, you can list message objects that conform to `MessageProtocol` to display messages using the `rowContent` parameter.
 
 All the body and row contents are flipped vertically so that new messages can be listed from the bottom.
 
 The messages are listed in the following order, depending on the `readReceipt` value of the `MessageProtocol`. For more details, please refer to `MessageProtocol/readReceipt` or `ReadReceipt`.
 
-sending → failed → sent → delivered → seen
+> **NOTE:** The order of the messages is like below:
+>
+> sending → failed → sent → delivered → seen
 
 ## Scrolls to bottom
 
