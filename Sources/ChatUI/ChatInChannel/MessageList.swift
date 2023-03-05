@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 /**
  The view that lists message objects.
@@ -18,7 +19,7 @@ import SwiftUI
 
  - **NOTE:** The order of the messages:  sending → failed → sent → delivered → seen
  */
-public struct MessageList<MessageType: MessageProtocol & Identifiable, RowContent: View>: View {
+public struct MessageList<MessageType: MessageProtocol & Identifiable, RowContent: View, MenuContent: View>: View {
     
     @EnvironmentObject var configuration: ChatConfiguration
 
@@ -27,11 +28,16 @@ public struct MessageList<MessageType: MessageProtocol & Identifiable, RowConten
     @State private var isKeyboardShown = false
     @State private var scrollOffset: CGFloat = 0
     @State private var showsScrollButton: Bool = false
+    @State private var highlightMessage: MessageType? = nil
+    @State private var isMessageMenuPresented: Bool = false
     
     /// The latest message goes very first.
     let showsDate: Bool
     let rowContent: (_ message: MessageType) -> RowContent
     let listName = "name.list.message"
+    
+    let messageMenuContent: ((_ message: MessageType) -> MenuContent)?
+    let reactionItems: [String]
     
     let sendingMessages: [MessageType]
     let failedMessages: [MessageType]
@@ -56,24 +62,36 @@ public struct MessageList<MessageType: MessageProtocol & Identifiable, RowConten
                     LazyVStack(spacing: 0) {
                         ForEach(sendingMessages) { message in
                             rowContent(message)
+                                .anchorPreference(key: BoundsPreferenceKey.self, value: .bounds) { anchor in
+                                    [message.id: anchor]
+                                }
                                 .padding(.horizontal, 12)
                                 .effect(.flipped)
                         }
                         
                         ForEach(failedMessages) { message in
                             rowContent(message)
+                                .anchorPreference(key: BoundsPreferenceKey.self, value: .bounds) { anchor in
+                                    [message.id: anchor]
+                                }
                                 .padding(.horizontal, 12)
                                 .effect(.flipped)
                         }
                         
                         ForEach(sentMessages) { message in
                             rowContent(message)
+                                .anchorPreference(key: BoundsPreferenceKey.self, value: .bounds) { anchor in
+                                    [message.id: anchor]
+                                }
                                 .padding(.horizontal, 12)
                                 .effect(.flipped)
                         }
                         
                         ForEach(deliveredMessages) { message in
                             rowContent(message)
+                                .anchorPreference(key: BoundsPreferenceKey.self, value: .bounds) { anchor in
+                                    [message.id: anchor]
+                                }
                                 .padding(.horizontal, 12)
                                 .effect(.flipped)
                         }
@@ -92,6 +110,9 @@ public struct MessageList<MessageType: MessageProtocol & Identifiable, RowConten
                                     }
                                     .padding(.trailing, 21)
                                 }
+                            }
+                            .anchorPreference(key: BoundsPreferenceKey.self, value: .bounds) { anchor in
+                                [message.id: anchor]
                             }
                             .padding(.horizontal, 12)
                             .effect(.flipped)
@@ -149,12 +170,117 @@ public struct MessageList<MessageType: MessageProtocol & Identifiable, RowConten
                     .padding(.bottom, 8)
             }
         }
+        .overlay {
+            // MARK: blur
+            if highlightMessage != nil {
+                Rectangle()
+                    .fill(.ultraThinMaterial)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        withAnimation {
+                            isMessageMenuPresented = false
+                            highlightMessage = nil
+                        }
+                    }
+            }
+        }
+        .overlayPreferenceValue(BoundsPreferenceKey.self) { values in
+            // MARK: Detects which message row is tapped
+            if let highlightMessage = highlightMessage, let preference = values.first(where: { item in
+                item.key == highlightMessage.id
+            }) {
+                GeometryReader { proxy in
+                    let rect = proxy[preference.value]
+                    // presenting view as an overlay, so that it will look like custom context
+                    VStack(alignment: configuration.userID == highlightMessage.sender.id ? .trailing : .leading, spacing: 0) {
+                        // MARK: Message Reaction
+                        if highlightMessage.readReceipt == .seen {
+                            ReactionSelector(isPresented: $isMessageMenuPresented, message: highlightMessage, items: reactionItems) { reactionItem in
+                                // MARK: Close Highlight
+                                withAnimation(.easeInOut) {
+                                    isMessageMenuPresented = false
+                                    self.highlightMessage = nil
+                                }
+                                
+                                // Reaction Publisher
+                                withAnimation(.easeInOut.delay(0.3)) {
+                                    let _ = Empty<Void, Never>()
+                                        .sink { _ in
+                                            messageReactionPublisher.send((reactionItem, highlightMessage.id))
+                                        } receiveValue: { _ in }
+                                }
+                            }
+                            .padding(.top, rect.minY > 0 ? rect.minY - 36.5 : 0)
+                        } else {
+                            Spacer()
+                                .frame(maxHeight: rect.minY > 0 ? rect.minY : 0)
+                        }
+                        
+                        // MARK: Message Row
+                        rowContent(highlightMessage)
+                            .frame(width: rect.width, height: rect.height)
+                        
+                        // MARK: Message Menu
+                        if let messageMenuContent = messageMenuContent {
+                            messageMenuContent(highlightMessage)
+                        }
+                        
+                        Spacer()
+                    }
+                    .id(highlightMessage.id)
+                    .offset(x: rect.minX)
+                }
+                .transition(.asymmetric(insertion: .identity, removal: .offset(x: 1)))
+            }
+        }
+        .onReceive(highlightMessagePublisher) { highlightMessage in
+            withAnimation(.easeInOut) {
+                self.highlightMessage = highlightMessage as? MessageType
+                self.isMessageMenuPresented = true                
+            }
+        }
     }
     
+    /// The view that lists `messageData` which is an array of the objects that conform to ``MessageProtocol``
+    ///
+    /// - Parameters:
+    ///    - messageData: The array of objects that conform to ``MessageProtocol``
+    ///    - showsDate: The boolean value that indicates whether shows date or not.
+    ///    - reactionItems: The array of reaction item that is type of `String`. e.g., `["❤️", "👍", "👎", "😆", "🎉"]`
+    ///    - rowContent: The row content for the message list. Each row represent one `message`. It's recommended that uses ``MessageRow``.
+    ///    - menuContent: The menu content for `message`. It's recommended that uses ``MessageMenu`` and ``MessageMenuButtonStyle``
+    ///
+    /// Example usage:
+    /// ```swift
+    /// MessageList(messages, reactionItems: ["❤️", "👍", "👎", "😆", "🎉"]) { message in
+    ///     MessageRow(message: message)
+    /// } menuContent: { highlightMessage in
+    ///     MessageMenu {
+    ///         Button("Copy", action: copy)
+    ///             .buttonStyle(MessageMenuButtonStyle(symbol: "doc.on.doc"))
+    ///
+    ///         Divider()
+    ///
+    ///         Button("Reply", action: reply)
+    ///             .buttonStyle(MessageMenuButtonStyle(symbol: "arrowshape.turn.up.right"))
+    ///
+    ///         Divider()
+    ///
+    ///         Button("Delete", action: delete)
+    ///             .buttonStyle(MessageMenuButtonStyle(symbol: "trash"))
+    ///     }
+    ///     .padding(.top, 12)
+    /// }
+    /// .onReceive(messageReactionPublisher) { (reactionItem, messageID) in
+    ///     // handle message with reactionItem
+    /// }
+    /// ```
     public init(
         _ messageData: [MessageType],
         showsDate: Bool = false, // TODO: Not Supported yet
-        @ViewBuilder rowContent: @escaping (_ message: MessageType) -> RowContent
+        reactionItems: [String] = [],
+        @ViewBuilder rowContent: @escaping (_ message: MessageType) -> RowContent,
+        @ViewBuilder menuContent: @escaping (_ message: MessageType) -> MenuContent
     ) {
         var sendingMessages: [MessageType] = []
         var failedMessages: [MessageType] = []
@@ -185,5 +311,40 @@ public struct MessageList<MessageType: MessageProtocol & Identifiable, RowConten
         
         self.showsDate = showsDate
         self.rowContent = rowContent
+        self.reactionItems = reactionItems
+        self.messageMenuContent = menuContent
+    }
+    
+    /// The view that lists `messageData` which is an array of the objects that conform to ``MessageProtocol``
+    ///
+    /// - Parameters:
+    ///    - messageData: The array of objects that conform to ``MessageProtocol``
+    ///    - showsDate: The boolean value that indicates whether shows date or not.
+    ///    - reactionItems: The array of reaction item that is type of `String`. e.g., `["❤️", "👍", "👎", "😆", "🎉"]`
+    ///    - rowContent: The row content for the message list. Each row represent one `message`. It's recommended that uses ``MessageRow``.
+    ///
+    /// Example usage:
+    /// ```swift
+    /// MessageList(messages, reactionItems: ["❤️", "👍", "👎", "😆", "🎉"]) { message in
+    ///     MessageRow(message: message)
+    /// }
+    /// .onReceive(messageReactionPublisher) { (reactionItem, messageID) in
+    ///     // handle message with reactionItem
+    /// }
+    /// ```
+    public init(
+        _ messageData: [MessageType],
+        showsDate: Bool = false, // TODO: Not Supported yet
+        reactionItems: [String] = [],
+        @ViewBuilder rowContent: @escaping (_ message: MessageType) -> RowContent
+    ) where MenuContent == EmptyView {
+        self.init(
+            messageData,
+            showsDate: showsDate,
+            reactionItems: reactionItems,
+            rowContent: rowContent
+        ) { _ in
+            EmptyView()
+        }
     }
 }

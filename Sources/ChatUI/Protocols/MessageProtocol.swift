@@ -19,3 +19,20 @@ public protocol MessageProtocol: Hashable {
     var readReceipt: ReadReceipt { get }
     var style: MessageStyle { get }
 }
+
+/// The protocol to support message reaction features.
+/// - IMPORTANT: Currently, it supports single reaction item only that is type of `String`. It's recommeded that uses text emoji such as `"❤️"`, `"🙂"`, `"👍"` and so on.
+public protocol MessageReactable: Hashable {
+    /// The reaction status.
+    /// - SeeAlso: ``ReactionStatus``
+    var reaction: ReactionStatus { get set }
+}
+
+/// The enumeration for message reaction status.
+/// - IMPORTANT: Currently, it supports single reaction item only that is type of `String`. It's recommeded that uses text emoji such as `"❤️"`, `"🙂"`, `"👍"` and so on.
+public enum ReactionStatus: Equatable, Hashable {
+    /// There is no reaction item in which the message has.
+    case none
+    /// There is a single reaction item on the message.
+    case reacted(_ item: String)
+}

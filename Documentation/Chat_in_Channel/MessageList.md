@@ -97,3 +97,35 @@ var body: some View {
             isKeyboardShown = isShown
         }
 ```
+
+## How to show message menu on long press gesture
+
+You can add message menus to display when a `rowContent`(such as `MessageRow`) is on long press gesture by setting `menuContent` parameter of the `MessageList` initializer.
+
+`MessageMenu` and `MessageMenubuttonStyle` allow you to create message menu more easily. Here is an example:
+
+```swift
+MessageList(messages) { message in
+    // row content
+    MessageRow(message: message)
+        .padding(.top, 12)
+} menuContent: { highlightMessage in 
+    // menu content
+    MessageMenu {
+        Button("Copy", action: copy)
+            .buttonStyle(MessageMenuButtonStyle(symbol: "doc.on.doc"))
+        
+        Divider()
+            
+        Button("Reply", action: reply)
+            .buttonStyle(MessageMenuButtonStyle(symbol: "arrowshape.turn.up.right"))
+            
+        Divider()
+        
+        Button("Delete", action: delete)
+            .buttonStyle(MessageMenuButtonStyle(symbol: "trash"))
+    }
+    .padding(.top, 12)
+}
+``` 
+

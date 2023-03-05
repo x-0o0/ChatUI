@@ -7,10 +7,11 @@
 
 import SwiftUI
 
-struct ScrollViewOffsetPreferenceKey: PreferenceKey {
-    static var defaultValue: CGFloat? = nil
+/// The preference key to detect scroll view offeset
+public struct ScrollViewOffsetPreferenceKey: PreferenceKey {
+    public internal(set) static var defaultValue: CGFloat? = nil
 
-    static func reduce(value: inout CGFloat?, nextValue: () -> CGFloat?) {
+    public static func reduce(value: inout CGFloat?, nextValue: () -> CGFloat?) {
         value = value ?? nextValue()
     }
 }
