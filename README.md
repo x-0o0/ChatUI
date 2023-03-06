@@ -104,7 +104,8 @@ If you have any feature you want, please let me know via *Issue* or *Discussion*
 - [x]  MessageList: Dimiss keyboard when tap outside
 - [ ]  MessageList: Date view
 - [ ]  MessageList: Publisher for retrieving more message while scrolling
-- [ ]  MessageRow: Message Menu 
+- [x]  MessageList: Message Menu 
+- [x]  MessageList: Message reaction publisher 
 - [ ]  MessageRow: placement (e.g., Both, leftOnly, rightOnly)
 - [ ]  MessageField: CameraCapturer
 - [ ]  Giphy: Resize body with GIF frame size

@@ -32,6 +32,31 @@ struct MessageList_Previews: PreviewProvider {
                 }
             }
             .previewDisplayName("Message List")
+            
+            MessageList(
+                [Message.message1, Message.message2, Message.message3],
+                reactionItems: ["❤️", "👍", "👎", "😆", "🎉"]
+            ) { message in
+                MessageRow(message: message, showsUsername: false, showsProfileImage: false)
+                    .padding(.top, 12)
+            } menuContent: { highlightMessage in
+                MessageMenu {
+                    Button("Copy", action: {})
+                        .buttonStyle(MessageMenuButtonStyle(symbol: "doc.on.doc"))
+                    
+                    Divider()
+                    Button("Reply", action: {})
+                        .buttonStyle(MessageMenuButtonStyle(symbol: "arrowshape.turn.up.right"))
+                    Divider()
+                    Button("Delete", action: {})
+                        .buttonStyle(MessageMenuButtonStyle(symbol: "trash"))
+                }
+                .padding(.top, 12)
+            }
+            .onReceive(messageReactionPublisher) { (item, messageID) in
+                print(item)
+            }
+            .previewDisplayName("Message Menu")
         }
         .environmentObject(
             ChatConfiguration(

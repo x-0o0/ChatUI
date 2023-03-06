@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 public struct MessageRow<M: MessageProtocol>: View {
     
@@ -17,6 +18,8 @@ public struct MessageRow<M: MessageProtocol>: View {
     let showsDate: Bool
     let showsProfileImage: Bool
     let showsReadReceiptStatus: Bool
+    
+    @State private var isSelected: Bool = false
     
     var isMyMessage: Bool {
         message.sender.id == configuration.userID
@@ -57,46 +60,36 @@ public struct MessageRow<M: MessageProtocol>: View {
                             .padding(.horizontal, 8)
                     }
                     
-                    switch message.style {
-                    case .text(let text):
-                        let markdown = LocalizedStringKey(text)
-                        Text(markdown)
-                            .tint(isMyMessage ? appearance.prominentLink : appearance.link)
-                            .messageStyle(isMyMessage ? .localBody : .remoteBody)
-                    case .media(let mediaType):
-                        switch mediaType {
-                        case .emoji(let key):
-                            Text(key)
-                                .messageStyle(isMyMessage ? .localBody : .remoteBody)
-                        case .gif(let key):
-                            GiphyStyleView(id: key)
-                        case .photo(let data):
-                            PhotoStyleView(data: data)
-                        case .video(let data):
-                            Text("\(data)")
-                                .lineLimit(5)
-                                .messageStyle(isMyMessage ? .localBody : .remoteBody)
-                        case .document(let data):
-                            Text("\(data)")
-                                .lineLimit(5)
-                                .messageStyle(isMyMessage ? .localBody : .remoteBody)
-                        case .contact(let contact):
-                            let markdown = """
-                            Name: **\(contact.givenName) \(contact.familyName)**
-                            Phone: \(contact.phoneNumbers)
-                            """
-                            Text(.init(markdown))
-                                .messageStyle(isMyMessage ? .localBody : .remoteBody)
-                        case .location(let latitude, let longitude):
-                            LocationStyleView(
-                                latitude: latitude,
-                                longitude: longitude
+                    if let reactableMessage = message as? MessageReactable {
+                        switch reactableMessage.reaction {
+                        case .none:
+                            EmptyView()
+                        case .reacted(let reactionItem):
+                            ReactionEffectView(
+                                item: reactionItem,
+                                effectTint: isMyMessage
+                                ? appearance.remoteMessageBackground
+                                : appearance.localMessageBackground
                             )
+                            .offset(x: isMyMessage ? 15 : -15)
+                            .padding(.bottom, -25)
+                            .zIndex(1)
+                            .opacity(isSelected ? 0 : 1)
                         }
-                    case .voice(let data):
-                        VoiceStyleView(data: data)
-                            .messageStyle(isMyMessage ? .localBody : .remoteBody)
+                        
                     }
+                    
+                    // MARK: Message bubble
+                    MessageView(style: message.style, isMyMessage: isMyMessage)
+                        .zIndex(0)
+                        .onLongPressGesture {
+                            withAnimation(.easeInOut) {
+                                let _ = Empty<Void, Never>()
+                                    .sink { _ in
+                                        highlightMessagePublisher.send(message)
+                                    } receiveValue: { _ in }
+                            }
+                        }
                 }
                 
                 if !isMyMessage {
@@ -143,6 +136,9 @@ public struct MessageRow<M: MessageProtocol>: View {
                 }
                 
             }
+        }
+        .onReceive(highlightMessagePublisher) { highlightMessage in
+            isSelected = message.id == highlightMessage.id
         }
     }
     
