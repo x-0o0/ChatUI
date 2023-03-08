@@ -33,13 +33,14 @@ public struct MessageMenuButtonStyle: ButtonStyle {
     public func makeBody(configuration: Configuration) -> some View {
         HStack {
             configuration.label
+            .frame(height: 44)
+            
             Spacer()
             Image(systemName: symbol)
         }
         .padding(.horizontal, 16)
         .foregroundColor(appearance.primary)
         .background(configuration.isPressed ? appearance.secondaryBackground : Color.clear)
-        .frame(height: 44)
     }
     
     public init(symbol: String) {

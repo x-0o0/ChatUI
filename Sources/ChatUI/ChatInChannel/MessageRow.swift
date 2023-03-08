@@ -138,7 +138,7 @@ public struct MessageRow<M: MessageProtocol>: View {
             }
         }
         .onReceive(highlightMessagePublisher) { highlightMessage in
-            isSelected = message.id == highlightMessage.id
+            isSelected = message.id == highlightMessage?.id
         }
     }
     

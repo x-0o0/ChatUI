@@ -208,18 +208,33 @@ public struct MessageList<MessageType: MessageProtocol & Identifiable, RowConten
     ///     MessageRow(message: message)
     /// } menuContent: { highlightMessage in
     ///     MessageMenu {
-    ///         Button("Copy", action: copy)
-    ///             .buttonStyle(MessageMenuButtonStyle(symbol: "doc.on.doc"))
+    ///         Button(action: copy) {
+    ///             HStack {
+    ///                 Text("Copy")
+    ///
+    ///                 Spacer()
+    ///
+    ///                 Image(systemName: "doc.on.doc")
+    ///             }
+    ///             .padding(.horizontal, 16)
+    ///             .foregroundColor(appearance.primary)
+    ///         }
+    ///         .frame(height: 44)
     ///
     ///         Divider()
     ///
-    ///         Button("Reply", action: reply)
-    ///             .buttonStyle(MessageMenuButtonStyle(symbol: "arrowshape.turn.up.right"))
+    ///         Button(action: delte) {
+    ///             .HStack {
+    ///                 Text("Delete")
     ///
-    ///         Divider()
+    ///                 Spacer()
     ///
-    ///         Button("Delete", action: delete)
-    ///             .buttonStyle(MessageMenuButtonStyle(symbol: "trash"))
+    ///                 Image(systemName: "trash")
+    ///             }
+    ///             .padding(.horizontal, 16)
+    ///             .foregroundColor(appearance.primary)
+    ///         }
+    ///         .frame(height: 44)
     ///     }
     ///     .padding(.top, 12)
     /// }
