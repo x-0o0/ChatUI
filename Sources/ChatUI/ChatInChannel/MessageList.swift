@@ -60,63 +60,15 @@ public struct MessageList<MessageType: MessageProtocol & Identifiable, RowConten
                     }
                     
                     LazyVStack(spacing: 0) {
-                        ForEach(sendingMessages) { message in
-                            rowContent(message)
-                                .anchorPreference(key: BoundsPreferenceKey.self, value: .bounds) { anchor in
-                                    [message.id: anchor]
-                                }
-                                .padding(.horizontal, 12)
-                                .effect(.flipped)
-                        }
+                        sendingMessageList
                         
-                        ForEach(failedMessages) { message in
-                            rowContent(message)
-                                .anchorPreference(key: BoundsPreferenceKey.self, value: .bounds) { anchor in
-                                    [message.id: anchor]
-                                }
-                                .padding(.horizontal, 12)
-                                .effect(.flipped)
-                        }
+                        failedMessageList
                         
-                        ForEach(sentMessages) { message in
-                            rowContent(message)
-                                .anchorPreference(key: BoundsPreferenceKey.self, value: .bounds) { anchor in
-                                    [message.id: anchor]
-                                }
-                                .padding(.horizontal, 12)
-                                .effect(.flipped)
-                        }
+                        sentMessageList
                         
-                        ForEach(deliveredMessages) { message in
-                            rowContent(message)
-                                .anchorPreference(key: BoundsPreferenceKey.self, value: .bounds) { anchor in
-                                    [message.id: anchor]
-                                }
-                                .padding(.horizontal, 12)
-                                .effect(.flipped)
-                        }
+                        deliveredMessageList
                         
-                        ForEach(seenMessages) { message in
-                            VStack(spacing: 0) {
-                                rowContent(message)
-                                
-                                if message.id == seenMessages.first?.id, message.sender.id == configuration.userID {
-                                    HStack {
-                                        Spacer()
-                                        
-                                        Text("seen")
-                                            .font(appearance.footnote)
-                                            .foregroundColor(appearance.secondary)
-                                    }
-                                    .padding(.trailing, 21)
-                                }
-                            }
-                            .anchorPreference(key: BoundsPreferenceKey.self, value: .bounds) { anchor in
-                                [message.id: anchor]
-                            }
-                            .padding(.horizontal, 12)
-                            .effect(.flipped)
-                        }
+                        seenMessageList
                     }
                 }
                 .keyboard(isKeyboardShown ? .visible : .hidden)
@@ -345,6 +297,98 @@ public struct MessageList<MessageType: MessageProtocol & Identifiable, RowConten
             rowContent: rowContent
         ) { _ in
             EmptyView()
+        }
+    }
+    
+    var sendingMessageList: some View {
+        ForEach(sendingMessages) { message in
+            VStack(spacing: 0) {
+                if showsDate(for: message) {
+                    MessageDateView(message: message)
+                }
+                
+                rowContent(message)
+                    .anchorPreference(key: BoundsPreferenceKey.self, value: .bounds) { anchor in
+                        [message.id: anchor]
+                    }
+            }
+            .padding(.horizontal, 12)
+            .effect(.flipped)
+        }
+    }
+    
+    var failedMessageList: some View {
+        ForEach(failedMessages) { message in
+            rowContent(message)
+                .anchorPreference(key: BoundsPreferenceKey.self, value: .bounds) { anchor in
+                    [message.id: anchor]
+                }
+                .padding(.horizontal, 12)
+                .effect(.flipped)
+        }
+    }
+    
+    var sentMessageList: some View {
+        ForEach(sentMessages) { message in
+            VStack(spacing: 0) {
+                if showsDate(for: message) {
+                    MessageDateView(message: message)
+                }
+                
+                rowContent(message)
+                    .anchorPreference(key: BoundsPreferenceKey.self, value: .bounds) { anchor in
+                        [message.id: anchor]
+                    }
+            }
+            .padding(.horizontal, 12)
+            .effect(.flipped)
+        }
+    }
+    
+    var deliveredMessageList: some View {
+        ForEach(deliveredMessages) { message in
+            VStack(spacing: 0) {
+                if showsDate(for: message) {
+                    MessageDateView(message: message)
+                }
+                
+                rowContent(message)
+                    .anchorPreference(key: BoundsPreferenceKey.self, value: .bounds) { anchor in
+                        [message.id: anchor]
+                    }
+            }
+            .padding(.horizontal, 12)
+            .effect(.flipped)
+        }
+    }
+    
+    var seenMessageList: some View {
+        ForEach(seenMessages) { message in
+            VStack(spacing: 0) {
+                if showsDate(for: message) {
+                    MessageDateView(message: message)
+                }
+                
+                VStack(spacing: 0) {
+                    rowContent(message)
+                    
+                    if message.id == seenMessages.first?.id, message.sender.id == configuration.userID {
+                        HStack {
+                            Spacer()
+                            
+                            Text("seen")
+                                .font(appearance.footnote)
+                                .foregroundColor(appearance.secondary)
+                        }
+                        .padding(.trailing, 21)
+                    }
+                }
+            }
+            .anchorPreference(key: BoundsPreferenceKey.self, value: .bounds) { anchor in
+                [message.id: anchor]
+            }
+            .padding(.horizontal, 12)
+            .effect(.flipped)
         }
     }
 }
