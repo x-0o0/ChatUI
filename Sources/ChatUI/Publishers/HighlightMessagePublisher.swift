@@ -10,4 +10,4 @@ import Combine
 /**
  The publisher that send highlight message.
  */
-public var highlightMessagePublisher = PassthroughSubject<any MessageProtocol, Never>()
+public var highlightMessagePublisher = PassthroughSubject<(any MessageProtocol)?, Never>()
