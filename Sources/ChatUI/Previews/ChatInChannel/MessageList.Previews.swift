@@ -29,6 +29,7 @@ struct MessageList_Previews: PreviewProvider {
                     }
                 } label: {
                     MessageRow(message: message)
+                        .multilineTextAlignment(.leading)
                 }
             }
             .previewDisplayName("Message List")
@@ -57,6 +58,12 @@ struct MessageList_Previews: PreviewProvider {
                 print(item)
             }
             .previewDisplayName("Message Menu")
+            
+            MessageList([Message.message1, Message.message2, Message.message3], showsDate: true) { message in
+                MessageRow(message: message, showsUsername: false, showsProfileImage: false)
+                    .padding(.top, 12)
+            }
+            .previewDisplayName("Message Date")
         }
         .environmentObject(
             ChatConfiguration(
