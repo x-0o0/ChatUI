@@ -146,7 +146,7 @@ public struct MessageList<MessageType: MessageProtocol & Identifiable, RowConten
                     // presenting view as an overlay, so that it will look like custom context
                     VStack(alignment: configuration.userID == highlightMessage.sender.id ? .trailing : .leading, spacing: 0) {
                         // MARK: Message Reaction
-                        if highlightMessage.readReceipt == .seen {
+                        if highlightMessage.readReceipt == .seen, !reactionItems.isEmpty {
                             ReactionSelector(isPresented: $isMessageMenuPresented, message: highlightMessage, items: reactionItems) { reactionItem in
                                 // MARK: Close Highlight
                                 withAnimation(.easeInOut) {
