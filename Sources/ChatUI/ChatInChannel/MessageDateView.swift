@@ -21,7 +21,7 @@ public struct MessageDateView<MessageType: MessageProtocol>: View {
     }
     
     public init(message: MessageType) {
-        self.date = Date(timeIntervalSince1970: message.sentAt / 1000)
+        self.date = Date(timeIntervalSince1970: message.sentAt)
     }
 }
 
