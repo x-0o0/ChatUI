@@ -129,10 +129,8 @@ public struct MessageList<MessageType: MessageProtocol & Identifiable, RowConten
                     .fill(.ultraThinMaterial)
                     .ignoresSafeArea()
                     .onTapGesture {
-                        withAnimation {
-                            isMessageMenuPresented = false
-                            highlightMessage = nil
-                        }
+                        isMessageMenuPresented = false
+                        highlightMessagePublisher.send(nil)
                     }
             }
         }
@@ -186,10 +184,19 @@ public struct MessageList<MessageType: MessageProtocol & Identifiable, RowConten
             }
         }
         .onReceive(highlightMessagePublisher) { highlightMessage in
-            withAnimation(.easeInOut) {
-                self.highlightMessage = highlightMessage as? MessageType
-                self.isMessageMenuPresented = true                
+            if let highlightMessage = highlightMessage as? MessageType {
+                self.highlightMessage = highlightMessage
+                withAnimation(.easeInOut) {
+                    self.isMessageMenuPresented = true
+                }
+            } else {
+                self.highlightMessage = nil
+                withAnimation(.easeInOut) {
+                    self.isMessageMenuPresented = false
+                }
+
             }
+            
         }
     }
     
