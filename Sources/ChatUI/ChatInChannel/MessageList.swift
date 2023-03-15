@@ -394,7 +394,7 @@ public struct MessageList<MessageType: MessageProtocol & Identifiable, RowConten
                 VStack(spacing: 0) {
                     rowContent(message)
                     
-                    if message.id == seenMessages.first?.id, message.sender.id == configuration.userID {
+                    if message == seenMessages.first, message.sender.id == configuration.userID {
                         HStack {
                             Spacer()
                             

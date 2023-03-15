@@ -18,7 +18,7 @@ public struct GiphyStyleView: View {
             .clipShape(RoundedRectangle(cornerRadius: 21))
     }
     
-    init(id: String) {
+    public init(id: String) {
         self.id = id
     }
 }

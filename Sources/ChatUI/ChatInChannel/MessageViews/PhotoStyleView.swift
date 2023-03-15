@@ -39,4 +39,8 @@ public struct PhotoStyleView: View {
                     .foregroundColor(Color.secondary)
             }
     }
+    
+    public init(data: Data) {
+        self.data = data
+    }
 }

@@ -30,6 +30,11 @@ public struct LocationStyleView: View {
         .frame(width: 220, height: 120)
         .clipShape(RoundedRectangle(cornerRadius: 21))
     }
+    
+    public init(latitude: Double, longitude: Double) {
+        self.latitude = latitude
+        self.longitude = longitude
+    }
 }
 
 extension LocationStyleView {
