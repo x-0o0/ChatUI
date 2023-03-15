@@ -71,7 +71,7 @@ public struct Appearance {
     public let prominentLink: Color
     
     /// The font used in message's body
-    public let messageBody: Font
+    public let body: Font
     /// The font used in additional minor information such as date
     public let caption: Font
     /// The font used in additional major information such as sender's name.
@@ -96,7 +96,7 @@ public struct Appearance {
         prominent: Color = Color.white,
         link: Color = Color(uiColor: .link),
         prominentLink: Color = Color(uiColor: .systemYellow),
-        messageBody: Font = .subheadline,
+        body: Font = .subheadline,
         caption: Font = .caption,
         footnote: Font = .footnote,
         title: Font = .headline,
@@ -118,7 +118,7 @@ public struct Appearance {
         self.prominentLink = prominentLink
         
         // Font
-        self.messageBody = messageBody
+        self.body = body
         self.caption = caption
         self.footnote = footnote
         self.title = title
