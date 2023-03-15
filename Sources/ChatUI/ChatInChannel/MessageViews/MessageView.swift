@@ -12,6 +12,7 @@ struct MessageView: View {
     
     let style: MessageStyle
     let isMyMessage: Bool
+    let lineLimit: Int?
     
     var body: some View {
         switch style {
@@ -19,12 +20,12 @@ struct MessageView: View {
             let markdown = LocalizedStringKey(text)
             Text(markdown)
                 .tint(isMyMessage ? appearance.prominentLink : appearance.link)
-                .messageStyle(isMyMessage ? .localBody : .remoteBody)
+                .messageStyle(isMyMessage ? .localBody(lineLimit) : .remoteBody(lineLimit))
         case .media(let mediaType):
             switch mediaType {
             case .emoji(let key):
                 Text(key)
-                    .messageStyle(isMyMessage ? .localBody : .remoteBody)
+                    .messageStyle(isMyMessage ? .localBody(lineLimit) : .remoteBody(lineLimit))
             case .gif(let key):
                 GiphyStyleView(id: key)
             case .photo(let data):
@@ -32,18 +33,18 @@ struct MessageView: View {
             case .video(let data):
                 Text("\(data)")
                     .lineLimit(5)
-                    .messageStyle(isMyMessage ? .localBody : .remoteBody)
+                    .messageStyle(isMyMessage ? .localBody(lineLimit) : .remoteBody(lineLimit))
             case .document(let data):
                 Text("\(data)")
                     .lineLimit(5)
-                    .messageStyle(isMyMessage ? .localBody : .remoteBody)
+                    .messageStyle(isMyMessage ? .localBody(lineLimit) : .remoteBody(lineLimit))
             case .contact(let contact):
                 let markdown = """
             Name: **\(contact.givenName) \(contact.familyName)**
             Phone: \(contact.phoneNumbers)
             """
                 Text(.init(markdown))
-                    .messageStyle(isMyMessage ? .localBody : .remoteBody)
+                    .messageStyle(isMyMessage ? .localBody(lineLimit) : .remoteBody(lineLimit))
             case .location(let latitude, let longitude):
                 LocationStyleView(
                     latitude: latitude,
@@ -52,7 +53,7 @@ struct MessageView: View {
             }
         case .voice(let data):
             VoiceStyleView(data: data)
-                .messageStyle(isMyMessage ? .localBody : .remoteBody)
+                .messageStyle(isMyMessage ? .localBody(lineLimit) : .remoteBody(lineLimit))
         }
     }
 }

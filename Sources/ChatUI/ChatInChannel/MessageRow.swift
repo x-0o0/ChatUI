@@ -18,6 +18,7 @@ public struct MessageRow<M: MessageProtocol>: View {
     let showsDate: Bool
     let showsProfileImage: Bool
     let showsReadReceiptStatus: Bool
+    let lineLimit: Int?
     
     @State private var isSelected: Bool = false
     
@@ -80,7 +81,7 @@ public struct MessageRow<M: MessageProtocol>: View {
                     }
                     
                     // MARK: Message bubble
-                    MessageView(style: message.style, isMyMessage: isMyMessage)
+                    MessageView(style: message.style, isMyMessage: isMyMessage, lineLimit: lineLimit)
                         .zIndex(0)
                         .onLongPressGesture {
                             withAnimation(.easeInOut) {
@@ -147,13 +148,15 @@ public struct MessageRow<M: MessageProtocol>: View {
         showsUsername: Bool = true,
         showsDate: Bool = true,
         showsProfileImage: Bool = true,
-        showsReadReceiptStatus: Bool = true
+        showsReadReceiptStatus: Bool = true,
+        lineLimit: Int? = nil
     ) {
         self.message = message
         self.showsUsername = showsUsername
         self.showsDate = showsDate
         self.showsProfileImage = showsProfileImage
         self.showsReadReceiptStatus = showsReadReceiptStatus
+        self.lineLimit = lineLimit
     }
     
     var formatter: DateFormatter {
