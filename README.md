@@ -97,7 +97,7 @@ To see **Figma**, the design resources, please see [ChatUI - Figma Community](ht
 
 ## To do list
 
-### Features
+### Features (🚀 target release date: Late June, 2023)
 
 If you have any feature you want, please let me know via *Issue* or *Discussion*
 
@@ -112,6 +112,13 @@ If you have any feature you want, please let me know via *Issue* or *Discussion*
 - [ ]  MapView: The view to shows map when the `.media(.location)` style message was tapped.
 - [ ]  MediaView: The view to display / play media in message
 - [ ]  MessageSearch: The feature that searches messages.
+
+### Next Key functions (2023 Feature Plans)
+
+- [ ]  List Chanels: ChannelList, ChannelGrid, ChannelRow, ChannelColumn
+- [ ]  Thread in Message: CommentList, CommentRow, etc,... (Add comment to the message)
+- [ ]  Feed: FeedStack (Add message to the feed)
+- [ ]  List Notifications: NotificationList, NotificationRow
 
 ### Documentations
 
