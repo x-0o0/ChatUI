@@ -76,6 +76,7 @@ public struct MessageField: View {
     
     let options: [MessageOption]
     let showsSendButtonAlways: Bool
+    let characterLimit: Int?
     let onSend: (_ messageStyle: MessageStyle) -> ()
     
     private var leftSideOptions: [MessageOption] {
@@ -146,7 +147,7 @@ public struct MessageField: View {
                 
                 // TextField
                 HStack(alignment: .bottom) {
-                    MessageTextField(text: $text, height: $textFieldHeight)
+                    MessageTextField(text: $text, height: $textFieldHeight, characterLimit: characterLimit)
                         .frame(height: textFieldHeight < 90 ? textFieldHeight : 90)
                         .padding(.leading, 9)
                         .padding(.trailing, 4)
@@ -206,11 +207,13 @@ public struct MessageField: View {
     public init(
         options: [MessageOption] = MessageOption.all,
         showsSendButtonAlways: Bool = false,
+        characterLimit: Int? = nil,
         isMenuItemPresented: Binding<Bool> = .constant(false),
         onSend: @escaping (_ messageStyle: MessageStyle) -> ()
     ) {
         self.options = options
         self.showsSendButtonAlways = showsSendButtonAlways
+        self.characterLimit = characterLimit
         self._isMenuItemPresented = isMenuItemPresented
         self.onSend = onSend
     }

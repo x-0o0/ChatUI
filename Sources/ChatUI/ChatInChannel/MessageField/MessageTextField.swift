@@ -14,6 +14,7 @@ struct MessageTextField: UIViewRepresentable {
     
     @State private var isEditing: Bool = false
     let placeholder: String = String.MessageField.placeholder
+    let characterLimit: Int?
     
     func makeUIView(context: UIViewRepresentableContext<MessageTextField>) -> UITextView {
         let view = UITextView()
@@ -67,7 +68,7 @@ struct MessageTextField: UIViewRepresentable {
         }
         
         func textViewDidChange(_ textView: UITextView) {
-            if textView.text.count > 300 {
+            if let characterLimit = parent.characterLimit, textView.text.count > characterLimit {
                 let start = textView.text.index(textView.text.startIndex, offsetBy: 0)
                 let end = textView.text.index(textView.text.startIndex, offsetBy: 300)
                 textView.text = String(textView.text[start..<end])

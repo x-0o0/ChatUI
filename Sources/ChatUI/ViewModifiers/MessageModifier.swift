@@ -9,17 +9,21 @@ import SwiftUI
 
 public class MessageModifier {
     public enum Style {
-        case remoteBody
-        case localBody
+        case remoteBody(_ lineLimit: Int?)
+        case localBody(_ lineLimit: Int?)
         case date
         case receipt
         case senderName
         case senderProfile
     }
     
-    public static var remoteBodyStyle = RemoteBody()
+    public static func remoteBodyStyle(_ lineLimit: Int?) -> RemoteBody {
+        RemoteBody(lineLimit: lineLimit)
+    }
     
-    public static var localBodyStyle = LocalBody()
+    public static func localBodyStyle(_ lineLimit: Int?) -> LocalBody {
+        LocalBody(lineLimit: lineLimit)
+    }
     
     public static var dateStyle = Date()
     
@@ -32,9 +36,11 @@ public class MessageModifier {
     public struct RemoteBody: ViewModifier {
         @Environment(\.appearance) var appearance
         
+        let lineLimit: Int?
+        
         public func body(content: Content) -> some View {
             content
-                .lineLimit(10)
+                .lineLimit(lineLimit)
                 .font(appearance.messageBody)
                 .frame(minWidth: 18) /// To make the bubble to be a circle shape, when the text is too short
                 .padding(12)
@@ -47,9 +53,11 @@ public class MessageModifier {
     public struct LocalBody: ViewModifier {
         @Environment(\.appearance) var appearance
         
+        let lineLimit: Int?
+        
         public func body(content: Content) -> some View {
             content
-                .lineLimit(10)
+                .lineLimit(lineLimit)
                 .font(appearance.messageBody)
                 .frame(minWidth: 18) /// To make the bubble to be a circle shape, when the text is too short
                 .padding(12)
@@ -107,10 +115,10 @@ public class MessageModifier {
 extension View {
     public func messageStyle(_ style: MessageModifier.Style) -> some View {
         switch style {
-        case .remoteBody:
-            return AnyView(modifier(MessageModifier.remoteBodyStyle))
-        case .localBody:
-            return AnyView(modifier(MessageModifier.localBodyStyle))
+        case .remoteBody(let lineLimit):
+            return AnyView(modifier(MessageModifier.remoteBodyStyle(lineLimit)))
+        case .localBody(let lineLimit):
+            return AnyView(modifier(MessageModifier.localBodyStyle(lineLimit)))
         case .date:
             return AnyView(modifier(MessageModifier.dateStyle))
         case .receipt:
@@ -122,5 +130,3 @@ extension View {
         }
     }
 }
-
-
