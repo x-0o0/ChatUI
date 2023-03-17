@@ -254,7 +254,7 @@ public struct MessageList<MessageType: MessageProtocol & Identifiable, RowConten
         showsDate: Bool = false, // TODO: Not Supported yet
         reactionItems: [String] = [],
         @ViewBuilder rowContent: @escaping (_ message: MessageType) -> RowContent,
-        @ViewBuilder menuContent: @escaping (_ message: MessageType) -> MenuContent
+        menuContent: ((_ message: MessageType) -> MenuContent)? = nil
     ) {
         var sendingMessages: [MessageType] = []
         var failedMessages: [MessageType] = []
@@ -312,14 +312,37 @@ public struct MessageList<MessageType: MessageProtocol & Identifiable, RowConten
         reactionItems: [String] = [],
         @ViewBuilder rowContent: @escaping (_ message: MessageType) -> RowContent
     ) where MenuContent == EmptyView {
-        self.init(
-            messageData,
-            showsDate: showsDate,
-            reactionItems: reactionItems,
-            rowContent: rowContent
-        ) { _ in
-            EmptyView()
+        var sendingMessages: [MessageType] = []
+        var failedMessages: [MessageType] = []
+        var sentMessages: [MessageType] = []
+        var deliveredMessages: [MessageType] = []
+        var seenMessages: [MessageType] = []
+        
+        messageData.forEach {
+            switch $0.readReceipt {
+            case .sending:
+                sendingMessages.append($0)
+            case .failed:
+                failedMessages.append($0)
+            case .sent:
+                sentMessages.append($0)
+            case .delivered:
+                deliveredMessages.append($0)
+            case .seen, .played:
+                seenMessages.append($0)
+            }
         }
+        
+        self.sendingMessages = sendingMessages
+        self.failedMessages = failedMessages
+        self.sentMessages = sentMessages
+        self.deliveredMessages = deliveredMessages
+        self.seenMessages = seenMessages
+        
+        self.showsDate = showsDate
+        self.rowContent = rowContent
+        self.reactionItems = reactionItems
+        self.messageMenuContent = nil
     }
     
     var sendingMessageList: some View {
