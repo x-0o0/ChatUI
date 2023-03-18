@@ -41,7 +41,7 @@ public class MessageModifier {
         public func body(content: Content) -> some View {
             content
                 .lineLimit(lineLimit)
-                .font(appearance.messageBody)
+                .font(appearance.body)
                 .frame(minWidth: 18) /// To make the bubble to be a circle shape, when the text is too short
                 .padding(12)
                 .foregroundColor(appearance.primary)
@@ -58,7 +58,7 @@ public class MessageModifier {
         public func body(content: Content) -> some View {
             content
                 .lineLimit(lineLimit)
-                .font(appearance.messageBody)
+                .font(appearance.body)
                 .frame(minWidth: 18) /// To make the bubble to be a circle shape, when the text is too short
                 .padding(12)
                 .foregroundColor(appearance.background)
