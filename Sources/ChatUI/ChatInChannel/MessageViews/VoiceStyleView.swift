@@ -82,6 +82,10 @@ public struct VoiceStyleView: View {
             dataModel.setup(with: data)
         }
     }
+   
+    public init(data: Data) {
+        self.data = data
+    }
     
     func controlAudioPlayer() {
         if dataModel.isPlaying {
