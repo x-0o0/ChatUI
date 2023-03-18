@@ -184,7 +184,7 @@ public struct MessageList<MessageType: MessageProtocol & Identifiable, RowConten
             }
         }
         .onReceive(highlightMessagePublisher) { highlightMessage in
-            if let highlightMessage = highlightMessage as? MessageType {
+            if let highlightMessage = highlightMessage as? MessageType, messageMenuContent != nil {
                 self.highlightMessage = highlightMessage
                 withAnimation(.easeInOut) {
                     self.isMessageMenuPresented = true
