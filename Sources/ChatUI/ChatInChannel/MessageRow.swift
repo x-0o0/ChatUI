@@ -83,6 +83,7 @@ public struct MessageRow<M: MessageProtocol>: View {
                     // MARK: Message bubble
                     MessageView(style: message.style, isMyMessage: isMyMessage, lineLimit: lineLimit)
                         .zIndex(0)
+                        .onTapGesture { }
                         .onLongPressGesture {
                             withAnimation(.easeInOut) {
                                 let _ = Empty<Void, Never>()
