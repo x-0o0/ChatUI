@@ -54,11 +54,10 @@ import PhotosUI
  ```
  */
 public struct MessageField: View {
-    @EnvironmentObject private var configuration: ChatConfiguration
 
+    @EnvironmentObject private var configuration: ChatConfiguration
     @Environment(\.appearance) var appearance
-    
-    
+
     @FocusState private var isTextFieldFocused: Bool
     @State private var text: String = ""
     @State private var textFieldHeight: CGFloat = 20
@@ -190,10 +189,10 @@ public struct MessageField: View {
         }
         .sheet(isPresented: $isGIFPickerPresented) {
             if let giphyKey = configuration.giphyKey {
-                GiphyPicker(giphyKey: giphyKey)
-                    .ignoresSafeArea()
-                    .presentationDetents([.fraction(0.9)])
-                    .presentationDragIndicator(.hidden)
+                GiphyPicker(giphyKey: giphyKey, giphyConfig: configuration.giphyConfig)
+                        .ignoresSafeArea()
+                        .presentationDetents([.fraction(configuration.giphyConfig.presentationDetents)])
+                        .presentationDragIndicator(.hidden)
             } else {
                 Text("No Giphy Key")
             }
