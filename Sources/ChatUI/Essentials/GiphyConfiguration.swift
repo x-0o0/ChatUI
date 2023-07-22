@@ -1,14 +1,12 @@
-import Foundation
 import GiphyUISDK
-import SwiftUI
 
-public class GiphyConfiguration {
+public struct GiphyConfiguration {
 
-    let dimBackground: Bool
-    let showConfirmationScreen: Bool
-    let shouldLocalizeSearch: Bool
-    let mediaTypeConfig: [GiphyUISDK.GPHContentType]
-    let presentationDetents: CGFloat
+    public let dimBackground: Bool
+    public let showConfirmationScreen: Bool
+    public let shouldLocalizeSearch: Bool
+    public let mediaTypeConfig: [GiphyUISDK.GPHContentType]
+    public let presentationDetents: CGFloat
 
     public init(
             dimBackground: Bool = false,
@@ -23,6 +21,4 @@ public class GiphyConfiguration {
         self.mediaTypeConfig = mediaTypeConfig
         self.presentationDetents = presentationDetents
     }
-
-
 }
