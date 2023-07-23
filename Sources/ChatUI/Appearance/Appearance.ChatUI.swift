@@ -80,6 +80,8 @@ public struct Appearance {
     public let title: Font
     /// The font used in the subtitle such as the subtitle of the channel in ``ChannelInfoView``
     public let subtitle: Font
+    /// Format of the time shown next to a message, default is 12 hour time hh:mm
+    public let messageTimeFormat: String
     
     public init(
         tint: Color = Color(.tintColor),
@@ -100,7 +102,8 @@ public struct Appearance {
         caption: Font = .caption,
         footnote: Font = .footnote,
         title: Font = .headline,
-        subtitle: Font = .footnote
+        subtitle: Font = .footnote,
+        messageTimeFormat: String = "hh:mm"
     ) {
         self.tint = tint
         self.primary = primary
@@ -116,6 +119,7 @@ public struct Appearance {
         self.prominent = prominent
         self.link = link
         self.prominentLink = prominentLink
+        self.messageTimeFormat = messageTimeFormat
         
         // Font
         self.body = body
