@@ -31,21 +31,26 @@ import GiphyUISDK
  - Note: This object is an `ObservableObject` and can be *observed for changes* in its properties. Any changes to the ``ChatConfiguration/userID`` or ``ChatConfiguration/giphyKey`` properties will automatically update any views that depend on this object.
  */
 open class ChatConfiguration: ObservableObject {
+
     /// User ID for chat
     public let userID: String
     /// Giphy API key
     public let giphyKey: String?
-    
+    /// Config for setting the giphyPicker appearance
+    public let giphyConfig: GiphyConfiguration
+
     /**
     Initializes a new ``ChatConfiguration`` object with the specified *user ID* and *Giphy API key* (optional).
 
     - Parameters:
      - userID: A unique identifier for the user.
      - giphyKey: An optional Giphy API key. If provided, enables Giphy integration.
+     - giphyConfig: An optional Giphy appearance config
     */
-    public init(userID: String, giphyKey: String? = nil) {
+    public init(userID: String, giphyKey: String? = nil, giphyConfig: GiphyConfiguration = GiphyConfiguration()) {
         self.userID = userID
         self.giphyKey = giphyKey
+        self.giphyConfig = giphyConfig
 
         // Giphy
         if let giphyKey = giphyKey {

@@ -29,19 +29,23 @@ import GiphyUISDK
 public struct GiphyPicker: UIViewControllerRepresentable {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) private var dismiss
-    
+
     let giphyKey: String
+    var giphyConfig: GiphyConfiguration
 
     public func makeUIViewController(context: Context) -> GiphyViewController {
         Giphy.configure(apiKey: giphyKey)
-        
+
         let controller = GiphyViewController()
         controller.swiftUIEnabled = true
-        controller.mediaTypeConfig = [.gifs, .stickers, .recents]
+        controller.mediaTypeConfig = giphyConfig.mediaTypeConfig
+        controller.dimBackground = giphyConfig.dimBackground
+        controller.showConfirmationScreen = giphyConfig.showConfirmationScreen
+        controller.shouldLocalizeSearch = giphyConfig.shouldLocalizeSearch
         controller.delegate = context.coordinator
         controller.navigationController?.isNavigationBarHidden = true
         controller.navigationController?.setNavigationBarHidden(true, animated: false)
-                
+
         GiphyViewController.trayHeightMultiplier = 1.0
 
         controller.theme = GPHTheme(
@@ -49,7 +53,7 @@ public struct GiphyPicker: UIViewControllerRepresentable {
             ? .lightBlur
             : .darkBlur
         )
-        
+
         return controller
     }
     

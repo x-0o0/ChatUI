@@ -162,7 +162,7 @@ public struct MessageRow<M: MessageProtocol>: View {
     
     var formatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "hh:mm"
+        formatter.dateFormat = appearance.messageTimeFormat
         return formatter
     }
 }
