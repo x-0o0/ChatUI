@@ -61,7 +61,7 @@ public struct MessageRow<M: MessageProtocol>: View {
                             .padding(.horizontal, 8)
                     }
                     
-                    if let reactableMessage = message as? MessageReactable {
+                    if let reactableMessage = message as? (any MessageReactable) {
                         switch reactableMessage.reaction {
                         case .none:
                             EmptyView()
