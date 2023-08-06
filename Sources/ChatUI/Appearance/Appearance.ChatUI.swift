@@ -1,6 +1,6 @@
 //
 //  Color.ChatUI.swift
-//  
+//
 //
 //  Created by Jaesung Lee on 2023/02/08.
 //
@@ -40,6 +40,7 @@ private struct AppearanceKey: EnvironmentKey {
  ```
  */
 public struct Appearance {
+    
     // MARK: Predefined Colors
     /// The main colors used in views provided by ``ChatUI``. The default is `Color(.systemBlue)`
     public let tint: Color
@@ -83,6 +84,9 @@ public struct Appearance {
     /// Format of the time shown next to a message, default is 12 hour time hh:mm
     public let messageTimeFormat: String
     
+    /// Images used throughout, these are defaulted and can be overridden for both light and dark modes
+    public let images: ImageAppearanceScheme
+    
     public init(
         tint: Color = Color(.tintColor),
         primary: Color = Color.primary,
@@ -103,6 +107,8 @@ public struct Appearance {
         footnote: Font = .footnote,
         title: Font = .headline,
         subtitle: Font = .footnote,
+        lightImages: ImageAppearance = ImageAppearance(),
+        darkImages: ImageAppearance = ImageAppearance(),
         messageTimeFormat: String = "hh:mm"
     ) {
         self.tint = tint
@@ -127,5 +133,10 @@ public struct Appearance {
         self.footnote = footnote
         self.title = title
         self.subtitle = subtitle
+    
+        // Image
+        self.images = ImageAppearanceScheme(darkAppearance: darkImages,
+            lightAppearance: lightImages)
     }
 }
+

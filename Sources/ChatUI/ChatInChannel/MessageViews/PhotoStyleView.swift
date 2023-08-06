@@ -1,6 +1,6 @@
 //
 //  PhotoStyleView.swift
-//  
+//
 //
 //  Created by Jaesung Lee on 2023/02/09.
 //
@@ -8,6 +8,10 @@
 import SwiftUI
 
 public struct PhotoStyleView: View {
+    
+    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.appearance) var appearance
+    
     let data: Data
     var uiImage: UIImage? {
         UIImage(data: data)
@@ -31,7 +35,7 @@ public struct PhotoStyleView: View {
             .frame(width: 220, height: 120)
             .overlay {
                 VStack {
-                    Image.downloadFailed.xLarge
+                    appearance.images.getDownloadFailed(colorScheme).xLarge
 
                     Text(String.Message.failedPhoto)
                         .font(.footnote.bold())
@@ -44,3 +48,4 @@ public struct PhotoStyleView: View {
         self.data = data
     }
 }
+

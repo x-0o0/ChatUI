@@ -1,6 +1,6 @@
 //
 //  CapturedItemView.swift
-//  
+//
 //
 //  Created by Jaesung Lee on 2023/02/12.
 //
@@ -9,6 +9,7 @@ import SwiftUI
 import Combine
 
 public struct CapturedItemView: View {
+    @Environment(\.colorScheme) var colorScheme
     @Environment(\.appearance) var appearance
     
     let itemType: CaptureType
@@ -37,7 +38,7 @@ public struct CapturedItemView: View {
         Color(uiColor: .secondarySystemBackground)
             .overlay {
                 VStack {
-                    Image.downloadFailed.xLarge
+                    appearance.images.getDownloadFailed(colorScheme).xLarge
 
                     Text(String.Message.failedPhoto)
                         .font(appearance.footnote.bold())
