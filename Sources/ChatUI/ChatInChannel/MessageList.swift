@@ -27,7 +27,7 @@ public struct MessageList<MessageType: MessageProtocol & Identifiable, RowConten
     
     @State private var isKeyboardShown = true
     @State private var scrollOffset: CGFloat = 0
-    @State private var showsScrollButton: Bool = false
+    // @State private var showsScrollButton: Bool = false
     @State private var highlightMessage: MessageType? = nil
     @State private var isMessageMenuPresented: Bool = false
     
@@ -76,22 +76,24 @@ public struct MessageList<MessageType: MessageProtocol & Identifiable, RowConten
                     isKeyboardShown = isShown
                 }
                 .coordinateSpace(name: listName)
-                .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
-                    DispatchQueue.main.async { [self] in
-                        let offsetValue = value ?? 0
-                        let diff = offsetValue - scrollOffset
-                        scrollOffset = offsetValue
-                        
-                        let isScrollButtonShown = offsetValue < -20
-                        if showsScrollButton != isScrollButtonShown {
-                            showsScrollButton = isScrollButtonShown
-                        }
-                        
-                        if isKeyboardShown && diff < -20 {
-                            isKeyboardShown = false
-                        }
-                    }
-                }
+// The below code is commented out until I can find out what the problem is with the keyboard not being shown
+// after scroll see https://github.com/jaesung-0o0/ChatUI/pull/38 for discussion
+//                .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
+//                    DispatchQueue.main.async { [self] in
+//                        let offsetValue = value ?? 0
+//                        let diff = offsetValue - scrollOffset
+//                        scrollOffset = offsetValue
+//
+//                        let isScrollButtonShown = offsetValue < -20
+//                        if showsScrollButton != isScrollButtonShown {
+//                            showsScrollButton = isScrollButtonShown
+//                        }
+//
+//                        if isKeyboardShown && diff < -20 {
+//                            isKeyboardShown = false
+//                        }
+//                    }
+//                }
                 .effect(.flipped)
                 /// When tapped sending button. Called after `onSent` in ``MessageField``
                 .onChange(of: sendingMessages) { newValue in
@@ -117,10 +119,10 @@ public struct MessageList<MessageType: MessageProtocol & Identifiable, RowConten
                 }
             }
             
-            if showsScrollButton {
-                ScrollButton()
-                    .padding(.bottom, 8)
-            }
+//            if showsScrollButton {
+//                ScrollButton()
+//                    .padding(.bottom, 8)
+//            }
         }
         .overlay {
             // MARK: blur
