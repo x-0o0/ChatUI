@@ -9,6 +9,7 @@ import SwiftUI
 import Combine
 
 public struct CameraField: View {
+    @Environment(\.colorScheme) var colorScheme
     @Environment(\.appearance) var appearance
     
     @State private var isCameraViewPresented: Bool = true
@@ -26,7 +27,7 @@ public struct CameraField: View {
                 appearance.secondary
                     .overlay {
                         VStack {
-                            appearance.images.downloadFailed.xLarge
+                            appearance.images.getDownloadFailed(colorScheme).xLarge
                                 .clipped()
 
                             Text(String.Message.failedPhoto)
@@ -42,7 +43,7 @@ public struct CameraField: View {
             
             HStack {
                 Button(action: retake) {
-                    appearance.images.camera.medium
+                    appearance.images.getCamera(colorScheme).medium
                 }
                 .tint(appearance.tint)
                 .frame(width: 36, height: 36)
@@ -51,7 +52,7 @@ public struct CameraField: View {
                 
                 Button(action: send) {
                     HStack {
-                        appearance.images.send.xSmall
+                        appearance.images.getSend(colorScheme).xSmall
                         
                         Text("Send")
                             .font(appearance.footnote.bold())

@@ -9,6 +9,7 @@ import SwiftUI
 
 public struct PhotoStyleView: View {
     
+    @Environment(\.colorScheme) var colorScheme
     @Environment(\.appearance) var appearance
     
     let data: Data
@@ -34,7 +35,7 @@ public struct PhotoStyleView: View {
             .frame(width: 220, height: 120)
             .overlay {
                 VStack {
-                    appearance.images.downloadFailed.xLarge
+                    appearance.images.getDownloadFailed(colorScheme).xLarge
 
                     Text(String.Message.failedPhoto)
                         .font(.footnote.bold())

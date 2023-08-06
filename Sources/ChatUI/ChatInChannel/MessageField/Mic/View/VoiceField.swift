@@ -9,6 +9,7 @@ import SwiftUI
 import Combine
 
 public struct VoiceField: View {
+    @Environment(\.colorScheme) var colorScheme
     @Environment(\.appearance) var appearance
     
     @StateObject private var dataModel = Recorder()
@@ -17,7 +18,7 @@ public struct VoiceField: View {
     public var body: some View {
         HStack {
             Button(action: cancel) {
-                appearance.images.delete.small
+                appearance.images.getDelete(colorScheme).small
                     .foregroundColor(appearance.secondary)
             }
             .buttonStyle(.plain)
@@ -40,7 +41,7 @@ public struct VoiceField: View {
             Spacer()
             
             Button(action: dataModel.stopRecording) {
-                appearance.images.send.small
+                appearance.images.getSend(colorScheme).small
                     .foregroundColor(appearance.prominent)
             }
             .buttonStyle(.plain)

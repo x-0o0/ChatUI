@@ -56,6 +56,7 @@ import PhotosUI
 public struct MessageField: View {
 
     @EnvironmentObject private var configuration: ChatConfiguration
+    @Environment(\.colorScheme) var colorScheme
     @Environment(\.appearance) var appearance
 
     @FocusState private var isTextFieldFocused: Bool
@@ -87,7 +88,7 @@ public struct MessageField: View {
             HStack(alignment: .bottom) {
                 if isTextFieldFocused, leftSideOptions.count > 1 {
                     Button(action: onTapHiddenButton) {
-                        appearance.images.buttonHidden.medium
+                        appearance.images.getButtonHidden(colorScheme).medium
                             .tint(appearance.tint)
                     }
                     .frame(width: 36, height: 36)
@@ -95,7 +96,7 @@ public struct MessageField: View {
                     if options.contains(.menu) {
                         // More Button
                         Button(action: onTapMore) {
-                            appearance.images.menu.medium
+                            appearance.images.getMenu(colorScheme).medium
                         }
                         .tint(appearance.tint)
                         .frame(width: 36, height: 36)
@@ -104,7 +105,7 @@ public struct MessageField: View {
                     // Camera Button
                     if options.contains(.camera) {
                         Button(action: onTapCamera) {
-                            appearance.images.camera.medium
+                            appearance.images.getCamera(colorScheme).medium
                         }
                         .tint(appearance.tint)
                         .disabled(isMenuItemPresented)
@@ -118,7 +119,7 @@ public struct MessageField: View {
                             matching: .images,
                             photoLibrary: .shared()
                         ) {
-                            appearance.images.photoLibrary.medium
+                            appearance.images.getPhotoLibrary(colorScheme).medium
                         }
                         .tint(appearance.tint)
                         .disabled(isMenuItemPresented)
@@ -136,7 +137,7 @@ public struct MessageField: View {
                     // Mic Button
                     if options.contains(.mic) {
                         Button(action: onTapMic) {
-                            appearance.images.mic.medium
+                            appearance.images.getMic(colorScheme).medium
                         }
                         .tint(appearance.tint)
                         .disabled(isMenuItemPresented)
@@ -155,7 +156,7 @@ public struct MessageField: View {
                     // Giphy Button
                     if options.contains(.giphy) {
                         Button(action: onTapGiphy) {
-                            appearance.images.giphy.medium
+                            appearance.images.getGiphy(colorScheme).medium
                         }
                         .tint(appearance.tint)
                         .disabled(isMenuItemPresented)
@@ -170,7 +171,7 @@ public struct MessageField: View {
                 // Send Button
                 if showsSendButtonAlways || !text.isEmpty {
                     Button(action: onTapSend) {
-                        appearance.images.send.medium
+                        appearance.images.getSend(colorScheme).medium
                     }
                     .frame(width: 36, height: 36)
                     .tint(appearance.tint)

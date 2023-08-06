@@ -50,6 +50,7 @@ class VoicePlayer: NSObject, ObservableObject, AVAudioPlayerDelegate {
 }
 
 public struct VoiceStyleView: View {
+    @Environment(\.colorScheme) var colorScheme
     @Environment(\.appearance) var appearance
     @StateObject private var dataModel = VoicePlayer()
     
@@ -60,9 +61,9 @@ public struct VoiceStyleView: View {
             Button(action: controlAudioPlayer) {
                 Group {
                     if dataModel.isPlaying {
-                        appearance.images.pause.medium
+                        appearance.images.getPause(colorScheme).medium
                     } else {
-                        appearance.images.play.medium
+                        appearance.images.getPlay(colorScheme).medium
                     }
                 }
                 .foregroundColor(.white)

@@ -40,6 +40,7 @@ private struct AppearanceKey: EnvironmentKey {
  ```
  */
 public struct Appearance {
+    
     // MARK: Predefined Colors
     /// The main colors used in views provided by ``ChatUI``. The default is `Color(.systemBlue)`
     public let tint: Color
@@ -134,6 +135,7 @@ public struct Appearance {
         self.subtitle = subtitle
     
         // Image
-        self.images = ImageAppearanceScheme(darkAppearance: darkImages, lightAppearance: lightImages)
+        self.images = ImageAppearanceScheme(darkAppearance: darkImages,
+            lightAppearance: lightImages)
     }
 }

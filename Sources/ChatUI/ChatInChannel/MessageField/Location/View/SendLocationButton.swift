@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SendLocationButton: View {
+    @Environment(\.colorScheme) var colorScheme
     @Environment(\.appearance) var appearance
     
     let action: () -> Void
@@ -19,7 +20,7 @@ struct SendLocationButton: View {
                     .foregroundColor(appearance.tint)
                     .frame(width: 48, height: 48)
                     .overlay {
-                        appearance.images.send.medium
+                        appearance.images.getSend(colorScheme).medium
                             .foregroundColor(appearance.prominent)
                     }
                 

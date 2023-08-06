@@ -10,6 +10,7 @@ import CoreImage
 import AVFoundation
 
 public struct CameraView: View {
+    @Environment(\.colorScheme) var colorScheme
     @Environment(\.appearance) var appearance
     @Environment(\.dismiss) private var dismiss
     
@@ -24,14 +25,14 @@ public struct CameraView: View {
                     dismiss()
                     onDismiss()
                 }) {
-                    appearance.images.close.medium
+                    appearance.images.getClose(colorScheme).medium
                         .foregroundColor(appearance.prominent)
                 }
                 
                 Spacer()
                 
                 Button(action: dataModel.switchCaptureDevice) {
-                    appearance.images.flip.medium
+                    appearance.images.getFlip(colorScheme).medium
                         .foregroundColor(appearance.prominent)
                 }
             }
