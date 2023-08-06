@@ -172,7 +172,6 @@ public struct MessageField: View {
                     .disabled(text.isEmpty)
                 }
             }
-            .padding(16)
             
             if isVoiceFieldPresented {
                 VoiceField(isPresented: $isVoiceFieldPresented)
