@@ -157,6 +157,7 @@ public struct MessageField: View {
                     if options.contains(.giphy) {
                         Button(action: onTapGiphy) {
                             appearance.images.getGiphy(colorScheme).medium
+                                .clipShape(RoundedRectangle(cornerRadius: 7.5))
                         }
                         .tint(appearance.tint)
                         .disabled(isMenuItemPresented)
@@ -165,7 +166,7 @@ public struct MessageField: View {
                 .padding(6)
                 .background {
                     appearance.secondaryBackground
-                        .clipShape(RoundedRectangle(cornerRadius: 18))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
                 
                 // Send Button

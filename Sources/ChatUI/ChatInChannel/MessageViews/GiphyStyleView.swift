@@ -15,7 +15,7 @@ public struct GiphyStyleView: View {
     public var body: some View {
         GiphyMediaView(gifID: id, aspectRatio: $aspectRatio)
             .frame(width: 120 * aspectRatio, height: 120)
-            .clipShape(RoundedRectangle(cornerRadius: 21))
+            .clipShape(RoundedRectangle(cornerRadius: 15))
     }
     
     public init(id: String) {
