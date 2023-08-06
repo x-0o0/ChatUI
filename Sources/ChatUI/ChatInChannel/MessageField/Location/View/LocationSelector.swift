@@ -11,6 +11,7 @@ import Combine
 import CoreLocationUI
 
 public struct LocationSelector: View {
+    @Environment(\.colorScheme) var colorScheme
     @Environment(\.appearance) var appearance
     
     @StateObject var dataModel = LocationModel()
@@ -71,7 +72,7 @@ public struct LocationSelector: View {
                 // Dimiss button & Search bar
                 HStack {
                     Button(action: dismiss) {
-                        Image.close.medium
+                        appearance.images.getClose(colorScheme).medium
                     }
                     .tint(appearance.tint)
                     .frame(width: 36, height: 36)
@@ -97,7 +98,7 @@ public struct LocationSelector: View {
                             .disabled(true)
                             .mask(LinearGradient(gradient: fade, startPoint: .top, endPoint: .bottom))
                         
-                        Image.location.medium
+                        appearance.images.getLocation(colorScheme).medium
                             .foregroundColor(appearance.prominent)
                             .padding()
                             .background {

@@ -15,6 +15,7 @@ import SwiftUI
  - The subtitle of the channel
  */
 public struct ChannelInfoView: View {
+    @Environment(\.colorScheme) var colorScheme
     @Environment(\.appearance) var appearance
     
     let imageURL: URL?
@@ -32,7 +33,7 @@ public struct ChannelInfoView: View {
                             .clipShape(Circle())
                     }
             } placeholder: {
-                Image.person.large2
+                appearance.images.getPerson(colorScheme).large2
                     .foregroundColor(appearance.secondary)
                     .clipShape(Circle())
             }

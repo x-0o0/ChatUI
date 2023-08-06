@@ -25,7 +25,7 @@ public struct MessageList<MessageType: MessageProtocol & Identifiable, RowConten
 
     @Environment(\.appearance) var appearance
     
-    @State private var isKeyboardShown = false
+    @State private var isKeyboardShown = true
     @State private var scrollOffset: CGFloat = 0
     @State private var showsScrollButton: Bool = false
     @State private var highlightMessage: MessageType? = nil

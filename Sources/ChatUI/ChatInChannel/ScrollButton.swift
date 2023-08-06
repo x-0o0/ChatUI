@@ -9,11 +9,12 @@ import SwiftUI
 import Combine
 
 public struct ScrollButton: View {
+    @Environment(\.colorScheme) var colorScheme
     @Environment(\.appearance) var appearance
     
     public var body: some View {
         Button(action: scrollToBotton) {
-            Image.directionDown.small
+            appearance.images.getDirectionDown(colorScheme).small
                 .foregroundColor(appearance.tint)
                 .padding(8)
                 .background {

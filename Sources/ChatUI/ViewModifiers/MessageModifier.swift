@@ -46,7 +46,7 @@ public class MessageModifier {
                 .padding(12)
                 .foregroundColor(appearance.primary)
                 .background(appearance.remoteMessageBackground)
-                .clipShape(RoundedRectangle(cornerRadius: 21))
+                .clipShape(RoundedRectangle(cornerRadius: 15))
         }
     }
     
@@ -63,7 +63,7 @@ public class MessageModifier {
                 .padding(12)
                 .foregroundColor(appearance.background)
                 .background(appearance.localMessageBackground)
-                .clipShape(RoundedRectangle(cornerRadius: 21))
+                .clipShape(RoundedRectangle(cornerRadius: 15))
         }
     }
     

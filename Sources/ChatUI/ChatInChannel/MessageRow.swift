@@ -11,6 +11,7 @@ import Combine
 public struct MessageRow<M: MessageProtocol>: View {
     
     @EnvironmentObject var configuration: ChatConfiguration
+    @Environment(\.colorScheme) var colorScheme
     @Environment(\.appearance) var appearance
     
     let message: M
@@ -113,22 +114,22 @@ public struct MessageRow<M: MessageProtocol>: View {
                     
                     switch message.readReceipt {
                     case .sending:
-                        Image.sending.xSmall2
+                        appearance.images.getSending(colorScheme).xSmall2
                             .clipShape(Circle())
                             .foregroundColor(appearance.secondary)
                             .padding(.top, 4)
                     case .failed:
-                        Image.failed.xSmall2
+                        appearance.images.getFailed(colorScheme).xSmall2
                             .clipShape(Circle())
                             .foregroundColor(appearance.error)
                             .padding(.top, 4)
                     case .sent:
-                        Image.sent.xSmall2
+                        appearance.images.getSent(colorScheme).xSmall2
                             .clipShape(Circle())
                             .foregroundColor(appearance.tint)
                             .padding(.top, 4)
                     case .delivered:
-                        Image.delivered.xSmall2
+                        appearance.images.getDelivered(colorScheme).xSmall2
                             .clipShape(Circle())
                             .foregroundColor(appearance.tint)
                             .padding(.top, 4)
