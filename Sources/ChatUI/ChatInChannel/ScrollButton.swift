@@ -13,7 +13,7 @@ public struct ScrollButton: View {
     
     public var body: some View {
         Button(action: scrollToBotton) {
-            Image.directionDown.small
+            appearance.images.directionDown.small
                 .foregroundColor(appearance.tint)
                 .padding(8)
                 .background {

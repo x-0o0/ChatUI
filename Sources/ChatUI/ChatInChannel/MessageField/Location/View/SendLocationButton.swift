@@ -19,7 +19,7 @@ struct SendLocationButton: View {
                     .foregroundColor(appearance.tint)
                     .frame(width: 48, height: 48)
                     .overlay {
-                        Image.send.medium
+                        appearance.images.send.medium
                             .foregroundColor(appearance.prominent)
                     }
                 

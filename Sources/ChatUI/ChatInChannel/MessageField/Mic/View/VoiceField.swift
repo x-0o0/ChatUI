@@ -17,7 +17,7 @@ public struct VoiceField: View {
     public var body: some View {
         HStack {
             Button(action: cancel) {
-                Image.delete.small
+                appearance.images.delete.small
                     .foregroundColor(appearance.secondary)
             }
             .buttonStyle(.plain)
@@ -40,7 +40,7 @@ public struct VoiceField: View {
             Spacer()
             
             Button(action: dataModel.stopRecording) {
-                Image.send.small
+                appearance.images.send.small
                     .foregroundColor(appearance.prominent)
             }
             .buttonStyle(.plain)

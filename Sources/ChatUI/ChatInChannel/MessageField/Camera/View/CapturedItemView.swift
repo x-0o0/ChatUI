@@ -37,7 +37,7 @@ public struct CapturedItemView: View {
         Color(uiColor: .secondarySystemBackground)
             .overlay {
                 VStack {
-                    Image.downloadFailed.xLarge
+                    appearance.images.downloadFailed.xLarge
 
                     Text(String.Message.failedPhoto)
                         .font(appearance.footnote.bold())

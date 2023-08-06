@@ -24,14 +24,14 @@ public struct CameraView: View {
                     dismiss()
                     onDismiss()
                 }) {
-                    Image.close.medium
+                    appearance.images.close.medium
                         .foregroundColor(appearance.prominent)
                 }
                 
                 Spacer()
                 
                 Button(action: dataModel.switchCaptureDevice) {
-                    Image.flip.medium
+                    appearance.images.flip.medium
                         .foregroundColor(appearance.prominent)
                 }
             }
