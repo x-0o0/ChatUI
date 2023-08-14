@@ -42,17 +42,17 @@ struct NextMessageField_Previews: PreviewProvider {
                 } leftLabel: {
                     HStack {
                         Button(action: {}) {
-                            appearance.images.getCamera(colorScheme).medium
+                            appearance.images.camera(colorScheme).medium
                         }
                         .frame(width: 36, height: 36)
                         
                         Button(action: {}) {
-                            appearance.images.getPhotoLibrary(colorScheme).medium
+                            appearance.images.photoLibrary(colorScheme).medium
                         }
                         .frame(width: 36, height: 36)
                         
                         Button(action: {}) {
-                            appearance.images.getMic(colorScheme).medium
+                            appearance.images.mic(colorScheme).medium
                         }
                         .frame(width: 36, height: 36)
                     }
@@ -60,7 +60,7 @@ struct NextMessageField_Previews: PreviewProvider {
                     Button {
                         sendMessagePublisher.send(.text(text))
                     } label: {
-                        appearance.images.getSend(colorScheme).medium
+                        appearance.images.send(colorScheme).medium
                     }
                     .frame(width: 36, height: 36)
                 }
@@ -71,5 +71,4 @@ struct NextMessageField_Previews: PreviewProvider {
     }
 
 }
-
 

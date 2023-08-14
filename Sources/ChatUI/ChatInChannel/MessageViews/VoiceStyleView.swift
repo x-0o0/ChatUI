@@ -61,9 +61,9 @@ public struct VoiceStyleView: View {
             Button(action: controlAudioPlayer) {
                 Group {
                     if dataModel.isPlaying {
-                        appearance.images.getPause(colorScheme).medium
+                        appearance.images.pause(colorScheme).medium
                     } else {
-                        appearance.images.getPlay(colorScheme).medium
+                        appearance.images.play(colorScheme).medium
                     }
                 }
                 .foregroundColor(.white)
@@ -97,4 +97,3 @@ public struct VoiceStyleView: View {
         }
     }
 }
-

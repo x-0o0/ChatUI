@@ -33,7 +33,7 @@ public struct ChannelInfoView: View {
                             .clipShape(Circle())
                     }
             } placeholder: {
-                appearance.images.getPerson(colorScheme).large2
+                appearance.images.person(colorScheme).large2
                     .foregroundColor(appearance.secondary)
                     .clipShape(Circle())
             }
@@ -56,4 +56,3 @@ public struct ChannelInfoView: View {
         self.subtitle = subtitle
     }
 }
-

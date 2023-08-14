@@ -1,147 +1,163 @@
+/// Provides images from ``ChatSymbols`` with the specific color scheme.
+///
+/// The initializer allows to set up the ``ChatSymbols`` for both light and dark mode.
+///
+/// Example usage:
+/// ```
+/// // To get ``ChatSymbols.send`` for dark mode
+/// ImageAsset.send(.dark)
+/// // To get ``ChatSybmols.camera`` for light mode
+/// ImageAsset.camera(.light)
+/// ```
+
 import Foundation
 import SwiftUI
 
-public struct ImageAppearanceScheme {
+public struct ImageAsset {
     
-    private let darkAppearance: ImageAppearance
-    private let lightAppearance: ImageAppearance
+    private let darkSymbol: ChatSymbols
+    private let lightSymbol: ChatSymbols
     
-    public func getMenu(_ colorScheme: ColorScheme) -> Image {
+    public func menu(_ colorScheme: ColorScheme) -> Image {
         return colorScheme == .dark
-        ? darkAppearance.menu
-        : lightAppearance.menu
+        ? darkSymbol.menu
+        : lightSymbol.menu
     }
     
-    public func getCamera(_ colorScheme: ColorScheme) -> Image {
+    public func camera(_ colorScheme: ColorScheme) -> Image {
         return colorScheme == .dark
-        ? darkAppearance.camera
-        : lightAppearance.camera
+        ? darkSymbol.camera
+        : lightSymbol.camera
     }
     
-    public func getPhotoLibrary(_ colorScheme: ColorScheme) -> Image {
+    public func photoLibrary(_ colorScheme: ColorScheme) -> Image {
         return colorScheme == .dark
-        ? darkAppearance.photoLibrary
-        : lightAppearance.photoLibrary
+        ? darkSymbol.photoLibrary
+        : lightSymbol.photoLibrary
     }
     
-    public func getMic(_ colorScheme: ColorScheme) -> Image {
+    public func mic(_ colorScheme: ColorScheme) -> Image {
         return colorScheme == .dark
-        ? darkAppearance.mic
-        : lightAppearance.mic
+        ? darkSymbol.mic
+        : lightSymbol.mic
     }
     
-    public func getGiphy(_ colorScheme: ColorScheme) -> Image {
+    public func giphy(_ colorScheme: ColorScheme) -> Image {
         return colorScheme == .dark
-        ? darkAppearance.giphy
-        : lightAppearance.giphy
+        ? darkSymbol.giphy
+        : lightSymbol.giphy
     }
     
-    public func getSend(_ colorScheme: ColorScheme) -> Image {
+    public func send(_ colorScheme: ColorScheme) -> Image {
         return colorScheme == .dark
-        ? darkAppearance.send
-        : lightAppearance.send
+        ? darkSymbol.send
+        : lightSymbol.send
     }
     
-    public func getButtonHidden(_ colorScheme: ColorScheme) -> Image {
+    public func buttonHidden(_ colorScheme: ColorScheme) -> Image {
         return colorScheme == .dark
-        ? darkAppearance.buttonHidden
-        : lightAppearance.buttonHidden
+        ? darkSymbol.buttonHidden
+        : lightSymbol.buttonHidden
     }
     
-    public func getDirectionDown(_ colorScheme: ColorScheme) -> Image {
+    public func directionDown(_ colorScheme: ColorScheme) -> Image {
         return colorScheme == .dark
-        ? darkAppearance.directionDown
-        : lightAppearance.directionDown
+        ? darkSymbol.directionDown
+        : lightSymbol.directionDown
     }
     
-    public func getLocation(_ colorScheme: ColorScheme) -> Image {
+    public func location(_ colorScheme: ColorScheme) -> Image {
         return colorScheme == .dark
-        ? darkAppearance.location
-        : lightAppearance.location
+        ? darkSymbol.location
+        : lightSymbol.location
     }
     
-    public func getDocument(_ colorScheme: ColorScheme) -> Image {
+    public func document(_ colorScheme: ColorScheme) -> Image {
         return colorScheme == .dark
-        ? darkAppearance.document
-        : lightAppearance.document
+        ? darkSymbol.document
+        : lightSymbol.document
     }
     
-    public func getMusic(_ colorScheme: ColorScheme) -> Image {
+    public func music(_ colorScheme: ColorScheme) -> Image {
         return colorScheme == .dark
-        ? darkAppearance.music
-        : lightAppearance.music
+        ? darkSymbol.music
+        : lightSymbol.music
     }
     
-    public func getSending(_ colorScheme: ColorScheme) -> Image {
+    public func sending(_ colorScheme: ColorScheme) -> Image {
         return colorScheme == .dark
-        ? darkAppearance.sending
-        : lightAppearance.sending
+        ? darkSymbol.sending
+        : lightSymbol.sending
     }
     
-    public func getSent(_ colorScheme: ColorScheme) -> Image {
+    public func sent(_ colorScheme: ColorScheme) -> Image {
         return colorScheme == .dark
-        ? darkAppearance.sent
-        : lightAppearance.sent
+        ? darkSymbol.sent
+        : lightSymbol.sent
     }
     
-    public func getDelivered(_ colorScheme: ColorScheme) -> Image {
+    public func delivered(_ colorScheme: ColorScheme) -> Image {
         return colorScheme == .dark
-        ? darkAppearance.delivered
-        : lightAppearance.delivered
+        ? darkSymbol.delivered
+        : lightSymbol.delivered
     }
     
-    public func getFailed(_ colorScheme: ColorScheme) -> Image {
+    public func failed(_ colorScheme: ColorScheme) -> Image {
         return colorScheme == .dark
-        ? darkAppearance.failed
-        : lightAppearance.failed
+        ? darkSymbol.failed
+        : lightSymbol.failed
     }
     
-    public func getDownloadFailed(_ colorScheme: ColorScheme) -> Image {
+    public func downloadFailed(_ colorScheme: ColorScheme) -> Image {
         return colorScheme == .dark
-        ? darkAppearance.downloadFailed
-        : lightAppearance.downloadFailed
+        ? darkSymbol.downloadFailed
+        : lightSymbol.downloadFailed
     }
     
-    public func getClose(_ colorScheme: ColorScheme) -> Image {
+    public func close(_ colorScheme: ColorScheme) -> Image {
         return colorScheme == .dark
-        ? darkAppearance.close
-        : lightAppearance.close
+        ? darkSymbol.close
+        : lightSymbol.close
     }
     
-    public func getFlip(_ colorScheme: ColorScheme) -> Image {
+    public func flip(_ colorScheme: ColorScheme) -> Image {
         return colorScheme == .dark
-        ? darkAppearance.flip
-        : lightAppearance.flip
+        ? darkSymbol.flip
+        : lightSymbol.flip
     }
     
-    public func getDelete(_ colorScheme: ColorScheme) -> Image {
+    public func delete(_ colorScheme: ColorScheme) -> Image {
         return colorScheme == .dark
-        ? darkAppearance.delete
-        : lightAppearance.delete
+        ? darkSymbol.delete
+        : lightSymbol.delete
     }
     
-    public func getPause(_ colorScheme: ColorScheme) -> Image {
+    public func pause(_ colorScheme: ColorScheme) -> Image {
         return colorScheme == .dark
-        ? darkAppearance.pause
-        : lightAppearance.pause
+        ? darkSymbol.pause
+        : lightSymbol.pause
     }
     
-    public func getPlay(_ colorScheme: ColorScheme) -> Image {
+    public func play(_ colorScheme: ColorScheme) -> Image {
         return colorScheme == .dark
-        ? darkAppearance.play
-        : lightAppearance.play
+        ? darkSymbol.play
+        : lightSymbol.play
     }
     
-    public func getPerson(_ colorScheme: ColorScheme) -> Image {
+    public func person(_ colorScheme: ColorScheme) -> Image {
         return colorScheme == .dark
-        ? darkAppearance.person
-        : lightAppearance.person
+        ? darkSymbol.person
+        : lightSymbol.person
     }
     
-    init(darkAppearance: ImageAppearance,
-         lightAppearance: ImageAppearance) {
-        self.darkAppearance = darkAppearance
-        self.lightAppearance = lightAppearance
+    /// Creates a new ``ImageAsset`` with ``ChatSymbols`` objects.
+    /// - Parameters:
+    ///    - lightSybmol: ``ChatSymbols`` object that is used for the light mode.
+    ///    - darkSymbol: ``ChatSymbols`` object that is used for the dark mode.
+    public init(lightSymbol: ChatSymbols,
+         darkSymbol: ChatSymbols) {
+        self.lightSymbol = lightSymbol
+        self.darkSymbol = darkSymbol
     }
     
 }

@@ -113,7 +113,7 @@ struct MessageField_Previews: PreviewProvider {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
                     Button(action: { }) {
-                        appearance.images.getLocation(colorScheme).large
+                        appearance.images.location(colorScheme).large
                             .foregroundColor(.white)
                             .padding(14)
                             .background {
@@ -123,7 +123,7 @@ struct MessageField_Previews: PreviewProvider {
                     }
                     
                     Button(action: { }) {
-                        appearance.images.getMusic(colorScheme).large
+                        appearance.images.music(colorScheme).large
                             .foregroundColor(.white)
                             .padding(14)
                             .background {
@@ -156,4 +156,3 @@ struct MessageField_Previews: PreviewProvider {
         }
     }
 }
-

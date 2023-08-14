@@ -35,7 +35,7 @@ public struct PhotoStyleView: View {
             .frame(width: 220, height: 120)
             .overlay {
                 VStack {
-                    appearance.images.getDownloadFailed(colorScheme).xLarge
+                    appearance.images.downloadFailed(colorScheme).xLarge
 
                     Text(String.Message.failedPhoto)
                         .font(.footnote.bold())
@@ -48,4 +48,3 @@ public struct PhotoStyleView: View {
         self.data = data
     }
 }
-

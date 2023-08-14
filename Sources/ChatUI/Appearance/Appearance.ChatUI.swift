@@ -84,8 +84,8 @@ public struct Appearance {
     /// Format of the time shown next to a message, default is 12 hour time hh:mm
     public let messageTimeFormat: String
     
-    /// Images used throughout, these are defaulted and can be overridden for both light and dark modes
-    public let images: ImageAppearanceScheme
+    /// Images used throughout, these are default and can be overridden for both light and dark modes
+    public let images: ImageAsset
     
     public init(
         tint: Color = Color(.tintColor),
@@ -107,8 +107,8 @@ public struct Appearance {
         footnote: Font = .footnote,
         title: Font = .headline,
         subtitle: Font = .footnote,
-        lightImages: ImageAppearance = ImageAppearance(),
-        darkImages: ImageAppearance = ImageAppearance(),
+        lightImages: ChatSymbols = ChatSymbols(),
+        darkImages: ChatSymbols = ChatSymbols(),
         messageTimeFormat: String = "hh:mm"
     ) {
         self.tint = tint
@@ -135,8 +135,7 @@ public struct Appearance {
         self.subtitle = subtitle
     
         // Image
-        self.images = ImageAppearanceScheme(darkAppearance: darkImages,
-            lightAppearance: lightImages)
+        self.images = ImageAsset(lightSymbol: lightImages, darkSymbol: darkImages)
     }
 }
 

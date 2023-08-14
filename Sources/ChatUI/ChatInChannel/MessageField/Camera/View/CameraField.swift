@@ -27,7 +27,7 @@ public struct CameraField: View {
                 appearance.secondary
                     .overlay {
                         VStack {
-                            appearance.images.getDownloadFailed(colorScheme).xLarge
+                            appearance.images.downloadFailed(colorScheme).xLarge
                                 .clipped()
 
                             Text(String.Message.failedPhoto)
@@ -43,7 +43,7 @@ public struct CameraField: View {
             
             HStack {
                 Button(action: retake) {
-                    appearance.images.getCamera(colorScheme).medium
+                    appearance.images.camera(colorScheme).medium
                 }
                 .tint(appearance.tint)
                 .frame(width: 36, height: 36)
@@ -52,7 +52,7 @@ public struct CameraField: View {
                 
                 Button(action: send) {
                     HStack {
-                        appearance.images.getSend(colorScheme).xSmall
+                        appearance.images.send(colorScheme).xSmall
                         
                         Text("Send")
                             .font(appearance.footnote.bold())
@@ -103,4 +103,3 @@ public struct CameraField: View {
         }
     }
 }
-
