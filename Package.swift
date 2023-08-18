@@ -24,7 +24,11 @@ let package = Package(
             name: "ChatUI",
             dependencies: [
                 .product(name: "GiphyUISDK", package: "giphy-ios-sdk")
-            ]),
+            ],
+            resources: [
+                 .process("Resources")
+               ]
+        ),
         .testTarget(
             name: "ChatUITests",
             dependencies: ["ChatUI"]),
