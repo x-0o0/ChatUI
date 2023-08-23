@@ -1,6 +1,6 @@
 //
 //  ChannelInfoView.swift
-//  
+//
 //
 //  Created by Jaesung Lee on 2023/02/09.
 //
@@ -15,6 +15,7 @@ import SwiftUI
  - The subtitle of the channel
  */
 public struct ChannelInfoView: View {
+    @Environment(\.colorScheme) var colorScheme
     @Environment(\.appearance) var appearance
     
     let imageURL: URL?
@@ -32,7 +33,7 @@ public struct ChannelInfoView: View {
                             .clipShape(Circle())
                     }
             } placeholder: {
-                Image.person.large2
+                appearance.images.person(colorScheme).large2
                     .foregroundColor(appearance.secondary)
                     .clipShape(Circle())
             }

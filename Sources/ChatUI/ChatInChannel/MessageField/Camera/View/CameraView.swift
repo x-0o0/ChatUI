@@ -1,6 +1,6 @@
 //
 //  CameraView.swift
-//  
+//
 //
 //  Created by Jaesung Lee on 2023/02/12.
 //
@@ -10,6 +10,7 @@ import CoreImage
 import AVFoundation
 
 public struct CameraView: View {
+    @Environment(\.colorScheme) var colorScheme
     @Environment(\.appearance) var appearance
     @Environment(\.dismiss) private var dismiss
     
@@ -24,14 +25,14 @@ public struct CameraView: View {
                     dismiss()
                     onDismiss()
                 }) {
-                    Image.close.medium
+                    appearance.images.close(colorScheme).medium
                         .foregroundColor(appearance.prominent)
                 }
                 
                 Spacer()
                 
                 Button(action: dataModel.switchCaptureDevice) {
-                    Image.flip.medium
+                    appearance.images.flip(colorScheme).medium
                         .foregroundColor(appearance.prominent)
                 }
             }

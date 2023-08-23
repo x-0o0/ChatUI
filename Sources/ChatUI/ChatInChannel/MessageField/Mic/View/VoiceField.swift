@@ -1,6 +1,6 @@
 //
 //  VoiceField.swift
-//  
+//
 //
 //  Created by Jaesung Lee on 2023/02/13.
 //
@@ -9,6 +9,7 @@ import SwiftUI
 import Combine
 
 public struct VoiceField: View {
+    @Environment(\.colorScheme) var colorScheme
     @Environment(\.appearance) var appearance
     
     @StateObject private var dataModel = Recorder()
@@ -17,7 +18,7 @@ public struct VoiceField: View {
     public var body: some View {
         HStack {
             Button(action: cancel) {
-                Image.delete.small
+                appearance.images.delete(colorScheme).small
                     .foregroundColor(appearance.secondary)
             }
             .buttonStyle(.plain)
@@ -40,7 +41,7 @@ public struct VoiceField: View {
             Spacer()
             
             Button(action: dataModel.stopRecording) {
-                Image.send.small
+                appearance.images.send(colorScheme).small
                     .foregroundColor(appearance.prominent)
             }
             .buttonStyle(.plain)

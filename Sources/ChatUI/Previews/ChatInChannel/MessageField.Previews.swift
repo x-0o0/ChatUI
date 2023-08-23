@@ -1,6 +1,6 @@
 //
 //  MessageField.Previews.swift
-//  
+//
 //
 //  Created by Jaesung Lee on 2023/02/08.
 //
@@ -79,6 +79,7 @@ struct MessageField_Previews: PreviewProvider {
     }
     
     struct MenuItemPreview: View {
+        @Environment(\.colorScheme) var colorScheme
         @Environment(\.appearance) var appearance
         
         @State private var isMenuItemPresented: Bool = false
@@ -112,7 +113,7 @@ struct MessageField_Previews: PreviewProvider {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
                     Button(action: { }) {
-                        Image.location.large
+                        appearance.images.location(colorScheme).large
                             .foregroundColor(.white)
                             .padding(14)
                             .background {
@@ -122,7 +123,7 @@ struct MessageField_Previews: PreviewProvider {
                     }
                     
                     Button(action: { }) {
-                        Image.music.large
+                        appearance.images.music(colorScheme).large
                             .foregroundColor(.white)
                             .padding(14)
                             .background {

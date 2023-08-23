@@ -1,6 +1,6 @@
 //
 //  CameraField.swift
-//  
+//
 //
 //  Created by Jaesung Lee on 2023/02/12.
 //
@@ -9,6 +9,7 @@ import SwiftUI
 import Combine
 
 public struct CameraField: View {
+    @Environment(\.colorScheme) var colorScheme
     @Environment(\.appearance) var appearance
     
     @State private var isCameraViewPresented: Bool = true
@@ -26,7 +27,7 @@ public struct CameraField: View {
                 appearance.secondary
                     .overlay {
                         VStack {
-                            Image.downloadFailed.xLarge
+                            appearance.images.downloadFailed(colorScheme).xLarge
                                 .clipped()
 
                             Text(String.Message.failedPhoto)
@@ -42,7 +43,7 @@ public struct CameraField: View {
             
             HStack {
                 Button(action: retake) {
-                    Image.camera.medium
+                    appearance.images.camera(colorScheme).medium
                 }
                 .tint(appearance.tint)
                 .frame(width: 36, height: 36)
@@ -51,7 +52,7 @@ public struct CameraField: View {
                 
                 Button(action: send) {
                     HStack {
-                        Image.send.xSmall
+                        appearance.images.send(colorScheme).xSmall
                         
                         Text("Send")
                             .font(appearance.footnote.bold())
@@ -98,7 +99,7 @@ public struct CameraField: View {
                 sendMessagePublisher.send(style)
             } receiveValue: { _ in }
         withAnimation {
-            isPresented = false            
+            isPresented = false
         }
     }
 }

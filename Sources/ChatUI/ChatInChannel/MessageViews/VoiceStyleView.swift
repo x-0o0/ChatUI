@@ -1,6 +1,6 @@
 //
 //  VoiceStyleView.swift
-//  
+//
 //
 //  Created by Jaesung Lee on 2023/02/10.
 //
@@ -50,6 +50,8 @@ class VoicePlayer: NSObject, ObservableObject, AVAudioPlayerDelegate {
 }
 
 public struct VoiceStyleView: View {
+    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.appearance) var appearance
     @StateObject private var dataModel = VoicePlayer()
     
     let data: Data
@@ -59,9 +61,9 @@ public struct VoiceStyleView: View {
             Button(action: controlAudioPlayer) {
                 Group {
                     if dataModel.isPlaying {
-                        Image.pause.medium
+                        appearance.images.pause(colorScheme).medium
                     } else {
-                        Image.play.medium
+                        appearance.images.play(colorScheme).medium
                     }
                 }
                 .foregroundColor(.white)

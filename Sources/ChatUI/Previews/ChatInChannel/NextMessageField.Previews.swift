@@ -14,6 +14,10 @@ struct NextMessageField_Previews: PreviewProvider {
     }
     
     struct Preview: View {
+        
+        private let appearance = Appearance()
+        
+        @Environment(\.colorScheme) var colorScheme
         @State private var pendingMessage: Message?
         @State private var text: String = ""
         
@@ -38,17 +42,17 @@ struct NextMessageField_Previews: PreviewProvider {
                 } leftLabel: {
                     HStack {
                         Button(action: {}) {
-                            Image.camera.medium
+                            appearance.images.camera(colorScheme).medium
                         }
                         .frame(width: 36, height: 36)
                         
                         Button(action: {}) {
-                            Image.photoLibrary.medium
+                            appearance.images.photoLibrary(colorScheme).medium
                         }
                         .frame(width: 36, height: 36)
                         
                         Button(action: {}) {
-                            Image.mic.medium
+                            appearance.images.mic(colorScheme).medium
                         }
                         .frame(width: 36, height: 36)
                     }
@@ -56,11 +60,11 @@ struct NextMessageField_Previews: PreviewProvider {
                     Button {
                         sendMessagePublisher.send(.text(text))
                     } label: {
-                        Image.send.medium
+                        appearance.images.send(colorScheme).medium
                     }
                     .frame(width: 36, height: 36)
                 }
-                .environment(\.appearance, Appearance())
+                .environment(\.appearance, appearance)
                 
             }
         }
