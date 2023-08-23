@@ -1,6 +1,6 @@
 //
 //  ChannelInfoView.swift
-//  
+//
 //
 //  Created by Jaesung Lee on 2023/02/09.
 //
@@ -33,7 +33,7 @@ public struct ChannelInfoView: View {
                             .clipShape(Circle())
                     }
             } placeholder: {
-                appearance.images.getPerson(colorScheme).large2
+                appearance.images.person(colorScheme).large2
                     .foregroundColor(appearance.secondary)
                     .clipShape(Circle())
             }

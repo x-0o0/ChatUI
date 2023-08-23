@@ -1,6 +1,6 @@
 //
 //  PhotoStyleView.swift
-//  
+//
 //
 //  Created by Jaesung Lee on 2023/02/09.
 //
@@ -35,7 +35,9 @@ public struct PhotoStyleView: View {
             .frame(width: 220, height: 120)
             .overlay {
                 VStack {
-                    appearance.images.getDownloadFailed(colorScheme).xLarge
+
+                    appearance.images.downloadFailed(colorScheme).xLarge
+
 
                     Text(String.Message.failedPhoto)
                         .font(.footnote.bold())

@@ -1,6 +1,6 @@
 //
 //  SendLocationButton.swift
-//  
+//
 //
 //  Created by Jaesung Lee on 2023/02/11.
 //
@@ -20,7 +20,9 @@ struct SendLocationButton: View {
                     .foregroundColor(appearance.tint)
                     .frame(width: 48, height: 48)
                     .overlay {
-                        appearance.images.getSend(colorScheme).medium
+
+                        appearance.images.send(colorScheme).medium
+
                             .foregroundColor(appearance.prominent)
                     }
                 

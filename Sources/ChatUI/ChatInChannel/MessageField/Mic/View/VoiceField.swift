@@ -1,6 +1,6 @@
 //
 //  VoiceField.swift
-//  
+//
 //
 //  Created by Jaesung Lee on 2023/02/13.
 //
@@ -18,7 +18,9 @@ public struct VoiceField: View {
     public var body: some View {
         HStack {
             Button(action: cancel) {
-                appearance.images.getDelete(colorScheme).small
+
+                appearance.images.delete(colorScheme).small
+
                     .foregroundColor(appearance.secondary)
             }
             .buttonStyle(.plain)
@@ -41,7 +43,9 @@ public struct VoiceField: View {
             Spacer()
             
             Button(action: dataModel.stopRecording) {
-                appearance.images.getSend(colorScheme).small
+
+                appearance.images.send(colorScheme).small
+
                     .foregroundColor(appearance.prominent)
             }
             .buttonStyle(.plain)

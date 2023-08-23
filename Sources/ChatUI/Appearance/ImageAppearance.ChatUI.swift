@@ -4,7 +4,7 @@
 ///
 /// Example usage:
 /// ```
-/// Image.send
+/// ChatSymbols.send
 ///     .resizable()
 ///     .frame(width: 100, height: 100)
 ///     .clipShape(Circle())
@@ -13,7 +13,7 @@
 import Foundation
 import SwiftUI
 
-public struct ImageAppearance {
+public struct ChatSymbols {
 
     /// circle.grid.2x2.fill
     public let menu: Image
@@ -81,6 +81,7 @@ public struct ImageAppearance {
     /// person.crop.circle.fill
     public let person: Image
 
+    /// Creates a new ``ChatSymbols``.
     public init(
             menu: Image = Image(systemName: "circle.grid.2x2.fill"),
             camera: Image = Image(systemName: "camera.fill"),

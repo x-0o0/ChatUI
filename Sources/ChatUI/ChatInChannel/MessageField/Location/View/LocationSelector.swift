@@ -1,6 +1,6 @@
 //
 //  LocationSelector.swift
-//  
+//
 //
 //  Created by Jaesung Lee on 2023/02/11.
 //
@@ -72,7 +72,9 @@ public struct LocationSelector: View {
                 // Dimiss button & Search bar
                 HStack {
                     Button(action: dismiss) {
-                        appearance.images.getClose(colorScheme).medium
+
+                        appearance.images.close(colorScheme).medium
+
                     }
                     .tint(appearance.tint)
                     .frame(width: 36, height: 36)
@@ -98,7 +100,8 @@ public struct LocationSelector: View {
                             .disabled(true)
                             .mask(LinearGradient(gradient: fade, startPoint: .top, endPoint: .bottom))
                         
-                        appearance.images.getLocation(colorScheme).medium
+                        appearance.images.location(colorScheme).medium
+
                             .foregroundColor(appearance.prominent)
                             .padding()
                             .background {
@@ -177,7 +180,7 @@ public struct LocationSelector: View {
     
     func dismiss() {
         withAnimation {
-            isPresented = false            
+            isPresented = false
         }
     }
     
