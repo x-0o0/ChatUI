@@ -38,13 +38,13 @@ public struct CapturedItemView: View {
         Color(uiColor: .secondarySystemBackground)
             .overlay {
                 VStack {
-
                     appearance.images.downloadFailed(colorScheme).xLarge
 
                     Text(String.Message.failedPhoto)
                         .font(appearance.footnote.bold())
                 }
-                    .foregroundColor(appearance.secondary)
+                // foregroundStyle
+                .foregroundColor(appearance.secondary)
             }
     }
 }

@@ -26,8 +26,8 @@ let package = Package(
                 .product(name: "GiphyUISDK", package: "giphy-ios-sdk")
             ],
             resources: [
-                 .process("Resources")
-               ]
+                .process("Resources")
+            ]
         ),
         .testTarget(
             name: "ChatUITests",

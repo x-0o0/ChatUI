@@ -18,9 +18,7 @@ public struct VoiceField: View {
     public var body: some View {
         HStack {
             Button(action: cancel) {
-
                 appearance.images.delete(colorScheme).small
-
                     .foregroundColor(appearance.secondary)
             }
             .buttonStyle(.plain)

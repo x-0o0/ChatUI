@@ -27,9 +27,7 @@ public struct CameraField: View {
                 appearance.secondary
                     .overlay {
                         VStack {
-
                             appearance.images.downloadFailed(colorScheme).xLarge
-
                                 .clipped()
 
                             Text(String.Message.failedPhoto)
@@ -54,7 +52,6 @@ public struct CameraField: View {
                 
                 Button(action: send) {
                     HStack {
-
                         appearance.images.send(colorScheme).xSmall
                         
                         Text("Send")

@@ -74,9 +74,7 @@ public struct MessageField: View {
     let onSend: (_ messageStyle: MessageStyle) -> ()
 
     private var leftSideOptions: [MessageOption] {
-        options.filter {
-            $0 != .giphy
-        }
+        options.filter { $0 != .giphy }
     }
 
     public var body: some View {
@@ -84,58 +82,50 @@ public struct MessageField: View {
             HStack(alignment: .bottom) {
                 if isTextFieldFocused, leftSideOptions.count > 1 {
                     Button(action: onTapHiddenButton) {
-
                         appearance.images.buttonHidden(colorScheme).medium
                             .tint(appearance.tint)
-
                     }
-                            .frame(width: 36, height: 36)
+                    .frame(width: 36, height: 36)
                 } else {
                     if options.contains(.menu) {
                         // More Button
                         Button(action: onTapMore) {
-
                             appearance.images.menu(colorScheme).medium
-
                         }
-                                .tint(appearance.tint)
-                                .frame(width: 36, height: 36)
+                        .tint(appearance.tint)
+                        .frame(width: 36, height: 36)
                     }
 
                     // Camera Button
                     if options.contains(.camera) {
                         Button(action: onTapCamera) {
-
                             appearance.images.camera(colorScheme).medium
-
                         }
-                                .tint(appearance.tint)
-                                .disabled(isMenuItemPresented)
-                                .frame(width: 36, height: 36)
+                        .tint(appearance.tint)
+                        .disabled(isMenuItemPresented)
+                        .frame(width: 36, height: 36)
                     }
 
                     // Photo Library Button
                     if options.contains(.photoLibrary) {
                         PhotosPicker(
-                                selection: $selectedItem,
-                                matching: .images,
-                                photoLibrary: .shared()
+                            selection: $selectedItem,
+                            matching: .images,
+                            photoLibrary: .shared()
                         ) {
-
                             appearance.images.photoLibrary(colorScheme).medium
-
                         }
-                                .tint(appearance.tint)
-                                .disabled(isMenuItemPresented)
-                                .frame(width: 36, height: 36)
-                                .onChange(of: selectedItem) { newItem in
-                                    Task {
-                                        // Retrive selected asset in the form of Data
-                                        if let data = try? await newItem?.loadTransferable(type: Data.self) {
-                                            self.onSelectPhoto(data: data)
-                                        }
-                                    }
+                        .tint(appearance.tint)
+                        .disabled(isMenuItemPresented)
+                        .frame(width: 36, height: 36)
+                        .onChange(of: selectedItem) { newItem in
+                            Task {
+                                // Retrive selected asset in the form of Data
+                                if let data = try? await newItem?.loadTransferable(type: Data.self) {
+                                    self.onSelectPhoto(data: data)
                                 }
+                            }
+                        }
                     }
 
                     // Mic Button
@@ -144,47 +134,43 @@ public struct MessageField: View {
 
                             appearance.images.mic(colorScheme).medium
                         }
-                                .tint(appearance.tint)
-                                .disabled(isMenuItemPresented)
-                                .frame(width: 36, height: 36)
+                        .tint(appearance.tint)
+                        .disabled(isMenuItemPresented)
+                        .frame(width: 36, height: 36)
                     }
                 }
 
                 // TextField
                 HStack(alignment: .bottom) {
                     MessageTextField(text: $text, height: $textFieldHeight, characterLimit: characterLimit)
-                            .frame(height: textFieldHeight < 90 ? textFieldHeight : 90)
-                            .padding(.leading, 9)
-                            .padding(.trailing, 4)
-                            .focused($isTextFieldFocused)
+                        .frame(height: textFieldHeight < 90 ? textFieldHeight : 90)
+                        .padding(.leading, 9)
+                        .padding(.trailing, 4)
+                        .focused($isTextFieldFocused)
 
                     // Giphy Button
                     if options.contains(.giphy) {
                         Button(action: onTapGiphy) {
-
                             appearance.images.giphy(colorScheme).medium
-
                         }
-                                .tint(appearance.tint)
-                                .disabled(isMenuItemPresented)
+                        .tint(appearance.tint)
+                        .disabled(isMenuItemPresented)
                     }
                 }
-                        .padding(6)
-                        .background {
-                            appearance.secondaryBackground
-                                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                        }
+                .padding(6)
+                .background {
+                    appearance.secondaryBackground
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                }
 
                 // Send Button
                 if showsSendButtonAlways || !text.isEmpty {
                     Button(action: onTapSend) {
-
                         appearance.images.send(colorScheme).medium
-
                     }
-                            .frame(width: 36, height: 36)
-                            .tint(appearance.tint)
-                            .disabled(text.isEmpty)
+                    .frame(width: 36, height: 36)
+                    .tint(appearance.tint)
+                    .disabled(text.isEmpty)
                 }
             }
 
@@ -196,31 +182,30 @@ public struct MessageField: View {
                 CameraField(isPresented: $isCameraFieldPresented)
             }
         }
-                .sheet(isPresented: $isGIFPickerPresented) {
-                    if let giphyKey = configuration.giphyKey {
-                        ZStack {
-                            GiphyPicker(
-                                    giphyKey: giphyKey,
-                                    giphyConfig: configuration.giphyConfig
-                            )
-                                    .ignoresSafeArea()
-                                    .presentationDetents(
-                                            [.fraction(configuration.giphyConfig.presentationDetents)]
-                                    )
-                                    .presentationDragIndicator(.hidden)
+        .sheet(isPresented: $isGIFPickerPresented) {
+            if let giphyKey = configuration.giphyKey {
+                ZStack {
+                    GiphyPicker(
+                        giphyKey: giphyKey,
+                        giphyConfig: configuration.giphyConfig
+                    )
+                    .ignoresSafeArea()
+                    .presentationDetents(
+                        [.fraction(configuration.giphyConfig.presentationDetents)]
+                    )
+                    .presentationDragIndicator(.hidden)
 
-                            if (configuration.giphyConfig.showAttributionMark) {
-                                GiphyAttributionMarkView()
-                            }
-                        }
-
-                    } else {
-                        Text("No Giphy Key")
+                    if (configuration.giphyConfig.showAttributionMark) {
+                        GiphyAttributionMarkView()
                     }
                 }
-                .onReceive(sendMessagePublisher) { messageStyle in
-                    onSend(messageStyle)
-                }
+            } else {
+                Text("No Giphy Key")
+            }
+        }
+        .onReceive(sendMessagePublisher) { messageStyle in
+            onSend(messageStyle)
+        }
     }
 
     public init(
@@ -267,9 +252,7 @@ public struct MessageField: View {
     }
 
     func onTapSend() {
-        guard !text.isEmpty else {
-            return
-        }
+        guard !text.isEmpty else { return }
         onSend(.text(text))
         text = ""
     }
@@ -302,15 +285,15 @@ public struct MessageField: View {
  MessageField(sendAction: ...) {
     MessageTextField()
         .fieldbar {
-             ItemGroup(placement: .leading) {
-                 MyAppCameraButton()
-             }
+            ItemGroup(placement: .leading) {
+                MyAppCameraButton()
+            }
  
-             FieldItemGroup(placement: .trailing) {
+            FieldItemGroup(placement: .trailing) {
                 VoiceButton()
  
                 EmojiButton()
-             }
+            }
         }
  }
  
@@ -356,12 +339,12 @@ extension MessageField {
 extension MessageField {
     public func fieldOption<Label: View>(_ placement: MessageField.Placement, @ViewBuilder label: @escaping () -> Label) -> some View {
         return AnyView(
-                modifier(
-                        MessageField.FieldOptionModifier(
-                                placement,
-                                label: label
-                        )
+            modifier(
+                MessageField.FieldOptionModifier(
+                    placement,
+                    label: label
                 )
+            )
         )
     }
 }

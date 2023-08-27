@@ -114,33 +114,29 @@ public struct MessageRow<M: MessageProtocol>: View {
                     
                     switch message.readReceipt {
                     case .sending:
-
                         appearance.images.sending(colorScheme).xSmall2
-
                             .clipShape(Circle())
                             .foregroundColor(appearance.secondary)
                             .padding(.top, 4)
+                    
                     case .failed:
-
                         appearance.images.failed(colorScheme).xSmall2
-
                             .clipShape(Circle())
                             .foregroundColor(appearance.error)
                             .padding(.top, 4)
+
                     case .sent:
-
                         appearance.images.sent(colorScheme).xSmall2
-
                             .clipShape(Circle())
                             .foregroundColor(appearance.tint)
                             .padding(.top, 4)
+                    
                     case .delivered:
-
                         appearance.images.delivered(colorScheme).xSmall2
-
                             .clipShape(Circle())
                             .foregroundColor(appearance.tint)
                             .padding(.top, 4)
+                            
                     default:
                         EmptyView()
                     }

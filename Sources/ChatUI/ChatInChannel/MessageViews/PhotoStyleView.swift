@@ -35,14 +35,12 @@ public struct PhotoStyleView: View {
             .frame(width: 220, height: 120)
             .overlay {
                 VStack {
-
                     appearance.images.downloadFailed(colorScheme).xLarge
-
 
                     Text(String.Message.failedPhoto)
                         .font(.footnote.bold())
                 }
-                    .foregroundColor(Color.secondary)
+                .foregroundColor(Color.secondary)
             }
     }
     

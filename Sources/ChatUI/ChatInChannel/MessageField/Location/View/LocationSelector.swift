@@ -72,9 +72,7 @@ public struct LocationSelector: View {
                 // Dimiss button & Search bar
                 HStack {
                     Button(action: dismiss) {
-
                         appearance.images.close(colorScheme).medium
-
                     }
                     .tint(appearance.tint)
                     .frame(width: 36, height: 36)
@@ -101,7 +99,6 @@ public struct LocationSelector: View {
                             .mask(LinearGradient(gradient: fade, startPoint: .top, endPoint: .bottom))
                         
                         appearance.images.location(colorScheme).medium
-
                             .foregroundColor(appearance.prominent)
                             .padding()
                             .background {

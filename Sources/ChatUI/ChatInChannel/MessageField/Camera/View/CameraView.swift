@@ -21,22 +21,18 @@ public struct CameraView: View {
     public var body: some View {
         VStack() {
             HStack {
-                Button(action: {
+                Button {
                     dismiss()
                     onDismiss()
-                }) {
-
+                } label: {
                     appearance.images.close(colorScheme).medium
-
                         .foregroundColor(appearance.prominent)
                 }
                 
                 Spacer()
                 
                 Button(action: dataModel.switchCaptureDevice) {
-
                     appearance.images.flip(colorScheme).medium
-
                         .foregroundColor(appearance.prominent)
                 }
             }
