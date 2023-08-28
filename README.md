@@ -3,6 +3,7 @@
 ChatUI is an open-source Swift package that provides a simple and reliable solution for implementing chat interfaces using SwiftUI.
 
 [![stability-beta](https://img.shields.io/badge/stability-beta-33bbff.svg?style=for-the-badge)](https://github.com/mkenney/software-guides/blob/master/STABILITY-BADGES.md#beta)
+
 [![ChatUI-examples](https://img.shields.io/badge/quickstart-chatui_examples-147EFB.svg?style=for-the-badge)](https://github.com/jaesung-0o0/ChatUI-examples)
 [![ChatUI-Figma-Community](https://img.shields.io/badge/design_system-chatui_figma-F24E1E.svg?style=for-the-badge)](https://www.figma.com/community/file/1211259538649728876)
 [![ChatUI-Canvas-Beta-Testing](https://img.shields.io/badge/canvas_app-beta-0D96F6.svg?style=for-the-badge)](https://testflight.apple.com/join/AKiViqEk)
