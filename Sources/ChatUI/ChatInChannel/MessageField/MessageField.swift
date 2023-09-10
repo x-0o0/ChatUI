@@ -183,15 +183,21 @@ public struct MessageField: View {
         }
         .sheet(isPresented: $isGIFPickerPresented) {
             if let giphyKey = configuration.giphyKey {
-                GiphyPicker(
-                    giphyKey: giphyKey, 
-                    giphyConfig: configuration.giphyConfig
-                )
-                .ignoresSafeArea()
-                .presentationDetents(
-                    [.fraction(configuration.giphyConfig.presentationDetents)]
-                )
-                .presentationDragIndicator(.hidden)
+                ZStack {
+                    GiphyPicker(
+                        giphyKey: giphyKey,
+                        giphyConfig: configuration.giphyConfig
+                    )
+                    .ignoresSafeArea()
+                    .presentationDetents(
+                        [.fraction(configuration.giphyConfig.presentationDetents)]
+                    )
+                    .presentationDragIndicator(.hidden)
+                    
+                    if (configuration.giphyConfig.showsAttributionMark) {
+                        GiphyAttributionMarkView()
+                    }
+                }
             } else {
                 Text("No Giphy Key")
             }
